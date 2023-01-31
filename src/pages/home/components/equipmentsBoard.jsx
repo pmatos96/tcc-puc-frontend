@@ -1,0 +1,61 @@
+
+import { v4 as uuid } from 'uuid';
+import { useEffect, useState } from "react";
+import ProjectItemLine from "./projectItemLine.jsx";
+
+export default function EquipmentsBoard(props){
+
+    const [equipmentItems, setEquipmentItems] = useState([
+        {
+            equipmentId: null,
+            amount: 1,
+            power: null,
+            id: uuid()
+        },
+    ])
+
+    function setNewEmptyEquipment(){
+        setEquipmentItems([...equipmentItems, {
+            equipmentId: null,
+            amount: 1,
+            power: null,
+            id: uuid()
+        }])
+    }
+
+    function handleRemove(id) {
+        setEquipmentItems(equipmentItems.filter(equipmentItem => equipmentItem.id !== id));
+    }
+
+    function handleChange({ name, value },  id) {
+        setEquipmentItems(
+            equipmentItems.map(equipmentItem => {
+            if (equipmentItem.id === id) {
+                return {
+                ...equipmentItem,
+                [name]: value
+                };
+            }
+            return equipmentItem;
+            })
+        );
+    }
+
+    return (
+        <div className="w-1/2 h-1/4 p-2 bg-slate-300 shadow-md rounded">
+            <h1 className="text-lg font-semibold">Aparelhos</h1>
+            <div>
+                {(equipmentItems || []).map(equipmentItem => {
+                    return <ProjectItemLine 
+                        onChange={(e) => handleChange(e, equipmentItem.id)} 
+                        key={equipmentItem.id} 
+                        equipment={equipmentItem} 
+                        onRemove={() => handleRemove(equipmentItem.id)}
+                        equipmentOptions={props.equipmentOptions}
+                    />
+                })}
+            </div>
+            <button onClick={() => {setNewEmptyEquipment()}}>+</button>
+        </div>
+    )
+}
