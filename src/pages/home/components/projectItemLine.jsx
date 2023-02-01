@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function ProjectItemLine({ equipment, onRemove, onChange, equipmentOptions }){
+export default function ProjectItemLine({ equipment, onRemove, onChange, equipmentOptions, linesAmount }){
 
     function handleInputChange(e) {
         onChange({ name: e.target.name, value: e.target.value });
@@ -20,7 +20,7 @@ export default function ProjectItemLine({ equipment, onRemove, onChange, equipme
             <input type="text" name="amount" onChange={handleInputChange} value={equipment.amount}/>
             <label for="power">Potência:</label>
             <input type="text" name="power" onChange={handleInputChange} value={equipment.power}/>
-            <button onClick={() => onRemove(equipment.id)}>Remover</button>
+            {linesAmount > 1 && <button onClick={() => onRemove(equipment.id)}>Remover</button>}
         </div>
     )
 }

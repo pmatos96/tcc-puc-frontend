@@ -53,6 +53,7 @@ export default function EquipmentsBoard(props){
                         equipment={equipmentItem} 
                         onRemove={() => handleRemove(equipmentItem.id)}
                         equipmentOptions={props.equipmentOptions}
+                        linesAmount={equipmentItems?.length}
                     />
                 })}
             </div>
