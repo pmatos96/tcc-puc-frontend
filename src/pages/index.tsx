@@ -4,7 +4,7 @@ import EquipmentsBoard from "./home/components/equipmentsBoard.jsx";
 export default function Home(props) {
   return (
     <div className="bg-slate-100 w-screen h-screen p-5">
-      <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
+      <h1 className="text-black font-bold pb-2">Calculadora elétrica do Vitão</h1>
       <EquipmentsBoard equipmentOptions={props.equipmentOptions}/>
     </div>
   )

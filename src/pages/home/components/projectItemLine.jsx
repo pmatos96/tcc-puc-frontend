@@ -14,7 +14,7 @@ export default function ProjectItemLine({ equipment, onRemove, onChange, equipme
     }
 
     function handleInputChange(e) {
-        onChange({ name: e.target.name, value: handleValueByFieldName(e.target) });
+        onChange({ name: e.target.name, value: e.target.value });
     }
 
     function handleEquipmentSelection(e){
@@ -22,12 +22,13 @@ export default function ProjectItemLine({ equipment, onRemove, onChange, equipme
         let equipmentSelected = equipmentOptions.find(option => option.id === e.target.value)
 
         onChange({ name: 'power', value: equipmentSelected.power});
+        onChange({ name: 'equipmentId', value: equipmentSelected.id})
     }
 
     return (
         <div>
-            <label for="equipments">Aparelho:</label>
-            <select name="equipments" id="equipments" onChange={(e) => handleEquipmentSelection(e)}>
+            <label for="equipmentId">Aparelho:</label>
+            <select name="equipmentId" id="equipmentId" onChange={handleInputChange}>
                 {
                     (equipmentOptions || []).map((optionItem, index) => {
                         return <option value={optionItem.id}>{optionItem.name}</option>

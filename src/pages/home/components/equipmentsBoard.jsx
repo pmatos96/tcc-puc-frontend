@@ -9,7 +9,7 @@ export default function EquipmentsBoard(props){
         {
             equipmentId: null,
             amount: 1,
-            power: null,
+            power: props?.equipmentOptions[0]?.power || "",
             id: uuid()
         },
     ])
@@ -18,7 +18,7 @@ export default function EquipmentsBoard(props){
         setEquipmentItems([...equipmentItems, {
             equipmentId: null,
             amount: 1,
-            power: null,
+            power: props?.equipmentOptions[0]?.power || "",
             id: uuid()
         }])
     }
@@ -33,7 +33,8 @@ export default function EquipmentsBoard(props){
             if (equipmentItem.id === id) {
                 return {
                 ...equipmentItem,
-                [name]: value
+                [name]: value,
+                power: name === 'equipmentId' ? props.equipmentOptions.find(item => item.id === value)?.power : equipmentItem.power
                 };
             }
             return equipmentItem;
