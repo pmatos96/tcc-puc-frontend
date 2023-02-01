@@ -2,27 +2,8 @@ import { useEffect } from "react";
 
 export default function ProjectItemLine({ equipment, onRemove, onChange, equipmentOptions }){
 
-    let equipments = ["a", "b", "c"];
-
-    function handleValueByFieldName({ value, name }){
-        const fieldHandlingConfig = {
-            'amount': ()=>{return value.replace(/[^\d]/g, '')},
-            'power': ()=>{return value.replace(/[^\d,]/g, "")}
-        }
-
-        return fieldHandlingConfig[name]();
-    }
-
     function handleInputChange(e) {
         onChange({ name: e.target.name, value: e.target.value });
-    }
-
-    function handleEquipmentSelection(e){
-
-        let equipmentSelected = equipmentOptions.find(option => option.id === e.target.value)
-
-        onChange({ name: 'power', value: equipmentSelected.power});
-        onChange({ name: 'equipmentId', value: equipmentSelected.id})
     }
 
     return (
