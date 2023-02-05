@@ -1,7 +1,7 @@
 
 import { v4 as uuid } from 'uuid';
 import { useEffect, useState } from "react";
-import ProjectItemLine from "./projectItemLine.jsx";
+import EquipmentProjectItemLine from "./equipmentProjectItemLine.jsx";
 
 export default function EquipmentsBoard(props){
 
@@ -43,14 +43,14 @@ export default function EquipmentsBoard(props){
     }
 
     return (
-        <div className="w-1/2 min-h-max p-2 bg-slate-300 shadow-md rounded">
+        <div className="w-1/2 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
             <h1 className="text-lg font-semibold">Aparelhos</h1>
             <div>
                 {(equipmentItems || []).map(equipmentItem => {
-                    return <ProjectItemLine 
+                    return <EquipmentProjectItemLine 
                         onChange={(e) => handleChange(e, equipmentItem.id)} 
                         key={equipmentItem.id} 
-                        equipment={equipmentItem} 
+                        equipmentItem={equipmentItem} 
                         onRemove={() => handleRemove(equipmentItem.id)}
                         equipmentOptions={props.equipmentOptions}
                         linesAmount={equipmentItems?.length}
