@@ -2,6 +2,8 @@
 import EquipmentsBoard from "../components/equipments/equipmentsBoard.jsx";
 import LampsBoard from "../components/lamps/lampsBoard";
 import MotorsBoard from "../components/motors/motorsBoard";
+import TransformersAndWeldingMachinesBoard from "../components/transformers-and-welding-machines/transformersAndWeldingMachinesBoard";
+import OutletsBoard from "../components/outlets/outletsBoard";
 
 export default function Home(props) {
   return (
@@ -11,7 +13,8 @@ export default function Home(props) {
         <EquipmentsBoard equipmentOptions={props.equipmentOptions}/>
         <MotorsBoard equipmentOptions={props.motorOptions}/>
         <LampsBoard equipmentOptions={props.lampOptions}/>
-        <EquipmentsBoard equipmentOptions={props.equipmentOptions}/>
+        <TransformersAndWeldingMachinesBoard equipmentOptions={props.equipmentOptions}/>
+        <OutletsBoard roomOptions={props.roomOptions}/>
       </div>
     </div>
   )
@@ -22,14 +25,18 @@ export const getServerSideProps = async () => {
   const lampEquipmentTypeId = "cldg31zmv0006j9qsji8aer2x";
   const motorEquipmentTypeId = "cldg31ppp0004j9qsmm0i9oj7"
 
-  const response = await fetch('http://localhost:3333/equipments/');
-  const data = await response.json();
+  const equipmentsResponse = await fetch('http://localhost:3333/equipments/');
+  const equipmentData = await equipmentsResponse.json();
+
+  const roomsResponse = await fetch('http://localhost:3333/rooms/');
+  const roomData = await roomsResponse.json();
 
   return {
       props:{
-          equipmentOptions: data.equipments.filter(equipment => equipment.typeId === commomEquipmentTypeId),
-          lampOptions: data.equipments.filter(equipment => equipment.typeId === lampEquipmentTypeId),
-          motorOptions: data.equipments.filter(equipment => equipment.typeId === motorEquipmentTypeId),
+          equipmentOptions: equipmentData.equipments.filter(equipment => equipment.typeId === commomEquipmentTypeId),
+          lampOptions: equipmentData.equipments.filter(equipment => equipment.typeId === lampEquipmentTypeId),
+          motorOptions: equipmentData.equipments.filter(equipment => equipment.typeId === motorEquipmentTypeId),
+          roomOptions: roomData.rooms
       }
   }
 }

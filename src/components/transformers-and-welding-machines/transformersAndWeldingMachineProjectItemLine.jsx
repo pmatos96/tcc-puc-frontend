@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export default function OutletProjectItemLine({ equipmentItem, onRemove, onChange, equipmentOptions, linesAmount }){
+export default function TransformersAndWeldingMachineProjectItemLine({ equipmentItem, onRemove, onChange, equipmentOptions, linesAmount }){
 
     function handleInputChange(e) {
         onChange({ name: e.target.name, value: e.target.value });
@@ -8,7 +8,7 @@ export default function OutletProjectItemLine({ equipmentItem, onRemove, onChang
 
     return (
         <div>
-            <label for="equipmentId">Modelo:</label>
+            <label for="equipmentId">Aparelho:</label>
             <select name="equipmentId" id="equipmentId" onChange={handleInputChange}>
                 {
                     (equipmentOptions || []).map((optionItem, index) => {
@@ -18,13 +18,8 @@ export default function OutletProjectItemLine({ equipmentItem, onRemove, onChang
             </select>
             <label for="amount">Quantidade:</label>
             <input type="text" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
-            <label for="power">Potência (elétrica):</label>
+            <label for="voltage">Potência:</label>
             <input type="text" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
-            <label for="phasesNumber">Tipo:</label>
-            <select name="phasesNumber" id="phasesNumber" onChange={handleInputChange}>
-                <option value="1">Monofásico</option>
-                <option value="3">Trifásico</option>
-            </select>
             {linesAmount > 1 && <button onClick={() => onRemove(equipmentItem.id)}>Remover</button>}
         </div>
     )
