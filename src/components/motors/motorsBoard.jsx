@@ -45,7 +45,7 @@ export default function MotorsBoard(props){
     }
 
     return (
-        <div className="w-1/2 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
+        <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
             <h1 className="text-lg font-semibold">Motores</h1>
             <div>
                 {(equipmentItems || []).map(equipmentItem => {

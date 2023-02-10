@@ -8,18 +8,18 @@ export default function EquipmentProjectItemLine({ equipmentItem, onRemove, onCh
 
     return (
         <div>
-            <label for="equipmentId">Aparelho:</label>
-            <select name="equipmentId" id="equipmentId" onChange={handleInputChange}>
+            <label className="mr-3" for="equipmentId">Aparelho:</label>
+            <select className="mr-4" name="equipmentId" id="equipmentId" onChange={handleInputChange}>
                 {
                     (equipmentOptions || []).map((optionItem, index) => {
                         return <option value={optionItem.id}>{optionItem.name}</option>
                     })
                 }
             </select>
-            <label for="amount">Quantidade:</label>
-            <input type="text" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
-            <label for="power">Potência:</label>
-            <input type="text" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
+            <label className="mr-3" for="amount">Quantidade:</label>
+            <input className="mr-4" type="text" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
+            <label className="mr-3" for="power">Potência:</label>
+            <input className="mr-4" type="text" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
             {linesAmount > 1 && <button onClick={() => onRemove(equipmentItem.id)}>Remover</button>}
         </div>
     )

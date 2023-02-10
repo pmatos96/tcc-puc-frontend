@@ -9,23 +9,23 @@ export default function MotorProjectItemLine({ equipmentItem, onRemove, onChange
     return (
         <div>
             {console.log(roomOptions)}
-            <label for="roomId">Tipo de cômodo:</label>
-            <select name="roomId" id="roomId" onChange={handleInputChange}>
+            <label className="mr-3" for="roomId">Tipo de cômodo:</label>
+            <select className="mr-4" name="roomId" id="roomId" onChange={handleInputChange}>
                 {
                     (roomOptions || []).map((optionItem, index) => {
                         return <option value={optionItem.id}>{optionItem.name}</option>
                     })
                 }
             </select>
-            <label for="amount">Quantidade:</label>
-            <input type="text" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
-            <label for="voltage">Tensão (V):</label>
-            <select name="voltage" id="voltage">
+            <label className="mr-3" for="amount">Quantidade:</label>
+            <input className="mr-4" type="text" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
+            <label className="mr-3" for="voltage">Tensão (V):</label>
+            <select className="mr-4" name="voltage" id="voltage">
                 <option value="127">127</option>
                 <option value="220">220</option>
             </select>
-            <label for="current">Corrente (A):</label>
-            <select name="current" id="current">
+            <label className="mr-3" for="current">Corrente (A):</label>
+            <select className="mr-4" name="current" id="current">
                 <option value="10">10</option>
                 <option value="20">20</option>
             </select>
