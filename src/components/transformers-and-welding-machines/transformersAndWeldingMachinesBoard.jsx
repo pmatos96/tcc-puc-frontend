@@ -44,7 +44,7 @@ export default function TransformersAndWeldingMachinesBoard(props){
 
     return (
         <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
-            <h1 className="text-lg font-semibold">Transformadores/Máquinas de solda</h1>
+            <h1 className="text-lg font-semibold flex">Transformadores/Máquinas de solda <i className="ml-2 material-icons-outlined">ev_station</i></h1>
             <div>
                 {(equipmentItems || []).map(equipmentItem => {
                     return <TransformersAndWeldingMachineProjectItemLine 

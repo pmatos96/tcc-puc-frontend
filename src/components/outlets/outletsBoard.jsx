@@ -52,7 +52,7 @@ export default function OutletsBoard(props){
 
     return (
         <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
-            <h1 className="text-lg font-semibold">Tomadas:</h1>
+            <h1 className="text-lg font-semibold flex">Tomadas <i className="ml-2 material-icons-outlined">electrical_services</i></h1>
             <div>
                 {(equipmentItems || []).map(equipmentItem => {
                     return <OutletProjectItemLine 
