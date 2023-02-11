@@ -2,6 +2,7 @@
 import { v4 as uuid } from 'uuid';
 import { useEffect, useState } from "react";
 import TransformersAndWeldingMachineProjectItemLine from './transformersAndWeldingMachineProjectItemLine.jsx';
+import BoardHeader from '../common/BoardHeader.jsx';
 
 export default function TransformersAndWeldingMachinesBoard(props){
 
@@ -44,7 +45,7 @@ export default function TransformersAndWeldingMachinesBoard(props){
 
     return (
         <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
-            <h1 className="text-lg font-semibold flex">Transformadores/Máquinas de solda <i className="ml-2 material-icons-outlined">ev_station</i></h1>
+            <BoardHeader title="Transformadores/Máquinas de solda" iconName="ev_station"/>
             <div>
                 {(equipmentItems || []).map(equipmentItem => {
                     return <TransformersAndWeldingMachineProjectItemLine 
@@ -57,7 +58,9 @@ export default function TransformersAndWeldingMachinesBoard(props){
                     />
                 })}
             </div>
-            <button onClick={() => {setNewEmptyEquipment()}}>+</button>
+            <button onClick={() => {setNewEmptyEquipment()}}>
+                <i className="material-icons-outlined">add_box</i>
+            </button>
         </div>
     )
 }

@@ -2,6 +2,7 @@
 import { v4 as uuid } from 'uuid';
 import { useEffect, useState } from "react";
 import LampProjectItemLine from './lampProjectItemLine.jsx';
+import BoardHeader from '../common/BoardHeader.jsx';
 
 export default function LampsBoard(props){
 
@@ -44,7 +45,7 @@ export default function LampsBoard(props){
 
     return (
         <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
-            <h1 className="text-lg font-semibold flex">Iluminação <i className="ml-2 material-icons-outlined">emoji_objects</i></h1>
+            <BoardHeader title="Iluminação" iconName="emoji_objects"/>
             <div>
                 {(equipmentItems || []).map(equipmentItem => {
                     return <LampProjectItemLine 
@@ -57,7 +58,9 @@ export default function LampsBoard(props){
                     />
                 })}
             </div>
-            <button onClick={() => {setNewEmptyEquipment()}}>+</button>
+            <button onClick={() => {setNewEmptyEquipment()}}>
+                <i className="material-icons-outlined">add_box</i>
+            </button>
         </div>
     )
 }

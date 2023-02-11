@@ -2,6 +2,7 @@
 import { v4 as uuid } from 'uuid';
 import { useEffect, useState } from "react";
 import OutletProjectItemLine from './outletProjectItemLine.jsx';
+import BoardHeader from '../common/BoardHeader.jsx';
 
 export default function OutletsBoard(props){
 
@@ -52,7 +53,7 @@ export default function OutletsBoard(props){
 
     return (
         <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
-            <h1 className="text-lg font-semibold flex">Tomadas <i className="ml-2 material-icons-outlined">electrical_services</i></h1>
+            <BoardHeader title="Tomadas" iconName="electrical_services"/>
             <div>
                 {(equipmentItems || []).map(equipmentItem => {
                     return <OutletProjectItemLine 
@@ -65,7 +66,9 @@ export default function OutletsBoard(props){
                     />
                 })}
             </div>
-            <button onClick={() => {setNewEmptyEquipment()}}>+</button>
+            <button onClick={() => {setNewEmptyEquipment()}}>
+                <i className="material-icons-outlined">add_box</i>
+            </button>
         </div>
     )
 }

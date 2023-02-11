@@ -2,6 +2,7 @@
 import { v4 as uuid } from 'uuid';
 import { useEffect, useState } from "react";
 import MotorProjectItemLine from './motorProjectItemLine.jsx';
+import BoardHeader from '../common/BoardHeader.jsx';
 
 export default function MotorsBoard(props){
 
@@ -46,7 +47,7 @@ export default function MotorsBoard(props){
 
     return (
         <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
-            <h1 className="text-lg font-semibold flex">Motores  <i className="ml-2 material-icons-outlined">settings</i></h1>
+            <BoardHeader title="Motores" iconName="settings"/>
             <div>
                 {(equipmentItems || []).map(equipmentItem => {
                     return <MotorProjectItemLine 
@@ -59,7 +60,9 @@ export default function MotorsBoard(props){
                     />
                 })}
             </div>
-            <button onClick={() => {setNewEmptyEquipment()}}>+</button>
+            <button onClick={() => {setNewEmptyEquipment()}}>
+                <i className="material-icons-outlined">add_box</i>
+            </button>
         </div>
     )
 }

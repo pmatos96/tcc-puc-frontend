@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import DeleteLineButton from "../common/DeleteLineButton";
 
 export default function LampProjectItemLine({ equipmentItem, onRemove, onChange, equipmentOptions, linesAmount }){
 
@@ -7,7 +8,7 @@ export default function LampProjectItemLine({ equipmentItem, onRemove, onChange,
     }
 
     return (
-        <div>
+        <div className="flex mt-2 mb-2">
             <label className="mr-3" for="equipmentId">Tipo:</label>
             <select className="mr-4" name="equipmentId" id="equipmentId" onChange={handleInputChange}>
                 {
@@ -20,7 +21,7 @@ export default function LampProjectItemLine({ equipmentItem, onRemove, onChange,
             <input className="mr-4" type="text" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
             <label className="mr-3" for="power">Potência:</label>
             <input className="mr-4" type="text" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
-            {linesAmount > 1 && <button onClick={() => onRemove(equipmentItem.id)}>Remover</button>}
+            <DeleteLineButton show={linesAmount > 1} onRemove={() => onRemove(equipmentItem.id)}/>
         </div>
     )
 }
