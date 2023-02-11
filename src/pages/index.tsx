@@ -13,8 +13,8 @@ export default function Home(props) {
         <EquipmentsBoard equipmentOptions={props.equipmentOptions}/>
         <MotorsBoard equipmentOptions={props.motorOptions}/>
         <LampsBoard equipmentOptions={props.lampOptions}/>
-        <TransformersAndWeldingMachinesBoard equipmentOptions={props.equipmentOptions}/>
-        <OutletsBoard roomOptions={props.roomOptions}/>
+        <TransformersAndWeldingMachinesBoard equipmentOptions={props.transformerAndWeldingMachinesOptions}/>
+        <OutletsBoard equipmentOptions={props.outletOptions} roomOptions={props.roomOptions}/>
       </div>
     </div>
   )
@@ -24,6 +24,8 @@ export const getServerSideProps = async () => {
   const commomEquipmentTypeId = "cldg31l7i0002j9qsi1l3edig";
   const lampEquipmentTypeId = "cldg31zmv0006j9qsji8aer2x";
   const motorEquipmentTypeId = "cldg31ppp0004j9qsmm0i9oj7"
+  const outletEquipmentTypeId = "cle0j3i2c0000j9zobqkc70xg";
+  const transformerAndWeldingMachinesTypeId = "cle0jbyve0003j9zo1tryviuk";
 
   const equipmentsResponse = await fetch('http://localhost:3333/equipments/');
   const equipmentData = await equipmentsResponse.json();
@@ -36,6 +38,8 @@ export const getServerSideProps = async () => {
           equipmentOptions: equipmentData.equipments.filter(equipment => equipment.typeId === commomEquipmentTypeId),
           lampOptions: equipmentData.equipments.filter(equipment => equipment.typeId === lampEquipmentTypeId),
           motorOptions: equipmentData.equipments.filter(equipment => equipment.typeId === motorEquipmentTypeId),
+          outletOptions: equipmentData.equipments.filter(equipment => equipment.typeId === outletEquipmentTypeId),
+          transformerAndWeldingMachinesOptions: equipmentData.equipments.filter(equipment => equipment.typeId === transformerAndWeldingMachinesTypeId),
           roomOptions: roomData.rooms
       }
   }

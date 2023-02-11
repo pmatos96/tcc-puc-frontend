@@ -6,22 +6,21 @@ import BoardHeader from '../common/BoardHeader.jsx';
 
 export default function TransformersAndWeldingMachinesBoard(props){
 
-    const [equipmentItems, setEquipmentItems] = useState([
-        {
-            equipmentId: null,
+    function getNewEquipmentData (){
+        return {
+            equipmentId: props?.equipmentOptions[0]?.id,
             amount: 1,
             power: props?.equipmentOptions[0]?.power || "",
             id: uuid()
-        },
+        }
+    }
+
+    const [equipmentItems, setEquipmentItems] = useState([
+        getNewEquipmentData()
     ])
 
     function setNewEmptyEquipment(){
-        setEquipmentItems([...equipmentItems, {
-            equipmentId: null,
-            amount: 1,
-            power: props?.equipmentOptions[0]?.power || "",
-            id: uuid()
-        }])
+        setEquipmentItems([...equipmentItems, getNewEquipmentData()])
     }
 
     function handleRemove(id) {
@@ -34,8 +33,8 @@ export default function TransformersAndWeldingMachinesBoard(props){
             if (equipmentItem.id === id) {
                 return {
                 ...equipmentItem,
+                power: name === 'equipmentId' ? props.equipmentOptions.find(item => item.id === value)?.power : equipmentItem.power,
                 [name]: value,
-                power: name === 'equipmentId' ? props.equipmentOptions.find(item => item.id === value)?.power : equipmentItem.power
                 };
             }
             return equipmentItem;

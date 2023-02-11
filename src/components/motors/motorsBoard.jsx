@@ -6,24 +6,22 @@ import BoardHeader from '../common/BoardHeader.jsx';
 
 export default function MotorsBoard(props){
 
-    const [equipmentItems, setEquipmentItems] = useState([
-        {
-            equipmentId: null,
+    function getNewEquipmentData (){
+        return {
+            equipmentId: props?.equipmentOptions[0]?.id,
             amount: 1,
             power: props?.equipmentOptions[0]?.power || "",
             id: uuid(),
             phasesNumber: 1
-        },
+        }
+    }
+
+    const [equipmentItems, setEquipmentItems] = useState([
+        getNewEquipmentData()    
     ])
 
     function setNewEmptyEquipment(){
-        setEquipmentItems([...equipmentItems, {
-            equipmentId: null,
-            amount: 1,
-            power: props?.equipmentOptions[0]?.power || "",
-            id: uuid(),
-            phasesNumber: 1
-        }])
+        setEquipmentItems([...equipmentItems, getNewEquipmentData()])
     }
 
     function handleRemove(id) {
@@ -36,8 +34,8 @@ export default function MotorsBoard(props){
             if (equipmentItem.id === id) {
                 return {
                 ...equipmentItem,
+                power: name === 'equipmentId' ? props.equipmentOptions.find(item => item.id === value)?.power : equipmentItem.power,
                 [name]: value,
-                power: name === 'equipmentId' ? props.equipmentOptions.find(item => item.id === value)?.power : equipmentItem.power
                 };
             }
             return equipmentItem;
