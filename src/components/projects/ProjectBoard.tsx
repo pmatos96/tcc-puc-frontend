@@ -1,4 +1,5 @@
 import BoardHeader from "../common/BoardHeader";
+import Button from "../common/Button";
 
 interface ProjectBoardProps {
     name: string;
@@ -20,8 +21,9 @@ export default function ProjectBoard ({ name, creationDate }: ProjectBoardProps)
                     }
                 )}
             </div>
-            <div className="w-1/2">
-
+            <div className="w-1/2 flex flex-col justify-around items-center">
+                <Button name="Excluir projeto" iconName="delete"/>
+                <Button name="Excluir projeto" iconName="delete"/>
             </div>
             
         </div>
