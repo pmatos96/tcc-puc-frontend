@@ -1,12 +1,15 @@
+import { MouseEventHandler } from "react";
 import BoardHeader from "../common/BoardHeader";
 import Button from "../common/Button";
 
+type EffectFunction = MouseEventHandler<HTMLDivElement>
 interface ProjectBoardProps {
     name?: string;
     creationDate?: Date;
+    newProjectEffect?: EffectFunction;
 }
 
-export default function ProjectBoard ({ name, creationDate }: ProjectBoardProps) {
+export default function ProjectBoard ({ name, creationDate, newProjectEffect }: ProjectBoardProps) {
 
     return (
         <div className="flex w-2/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded text-slate-700">
@@ -29,7 +32,7 @@ export default function ProjectBoard ({ name, creationDate }: ProjectBoardProps)
                     </div>
                 </>
                 :
-                    <div className="w-full flex justify-center items-center cursor-pointer">
+                    <div className="w-full flex justify-center items-center cursor-pointer" onClick={newProjectEffect}>
                         <i style={{fontSize: "100px"}} className="ml-2 material-icons-outlined">add_box</i>
                         <h1 className="text-2xl"><b>Nova instalação</b></h1>
                     </div>

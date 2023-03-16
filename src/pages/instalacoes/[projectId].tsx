@@ -1,11 +1,11 @@
 
-import EquipmentsBoard from "../components/equipments/equipmentsBoard.jsx";
-import LampsBoard from "../components/lamps/lampsBoard";
-import MotorsBoard from "../components/motors/motorsBoard";
-import TransformersAndWeldingMachinesBoard from "../components/transformers-and-welding-machines/transformersAndWeldingMachinesBoard";
-import OutletsBoard from "../components/outlets/outletsBoard";
+import EquipmentsBoard from "../../components/equipments/equipmentsBoard.jsx";
+import LampsBoard from "../../components/lamps/lampsBoard";
+import MotorsBoard from "../../components/motors/motorsBoard";
+import TransformersAndWeldingMachinesBoard from "../../components/transformers-and-welding-machines/transformersAndWeldingMachinesBoard";
+import OutletsBoard from "../../components/outlets/outletsBoard";
 
-export default function Home(props) {
+export default function Home(props: any) {
   return (
     <div className="bg-slate-100 w-screen min-h-screen">
       <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
