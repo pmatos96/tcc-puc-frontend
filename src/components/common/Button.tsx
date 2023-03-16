@@ -3,12 +3,13 @@ interface ButtonProps {
     name: string;
     iconName: string;
     color?: string;
+    fontColor?: string;
 }
 
-export default function Button({ name, iconName, color}: ButtonProps){
+export default function Button({ name, iconName, color, fontColor}: ButtonProps){
 
     const getClassName = () => {
-        return "w-40 h-10 rounded-md flex items-center justify-center border-solid border-2 border-slate-400 cursor-pointer" + " " + (color || "bg-amber-300");
+        return "min-w-40 h-10 p-2 rounded-md flex items-center justify-center border-solid border-2 border-slate-400 cursor-pointer shadow-md " + fontColor + " " + (color || "bg-amber-300");
     }
 
     return (

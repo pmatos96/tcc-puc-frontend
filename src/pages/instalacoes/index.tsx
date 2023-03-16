@@ -20,6 +20,7 @@ export default function Projects(props) {
         {projects.map(project => {
             return <ProjectBoard name={project.name} creationDate={project.createdAt}/>
         })}
+        <ProjectBoard/>
       </div>
     </div>
   )
