@@ -1,10 +1,12 @@
 import Button from "@/src/components/common/Button";
+import ProjectCreationModal from "@/src/components/instalacoes/projectCreationModal";
 import ProjectBoard from "@/src/components/projects/ProjectBoard"
+import API from "@/src/services/api";
 import { useState } from "react"
 
 export default function Projects() {
 
-    const [creationModalOpen, setCreationModalOpen] = useState(true);
+    const [creationModalOpen, setCreationModalOpen] = useState(false);
 
     const projects = [
         {
@@ -27,18 +29,15 @@ export default function Projects() {
         <ProjectBoard newProjectEffect={() => {setCreationModalOpen(true)}}/>
       </div>
       {creationModalOpen && 
-      <div className="absolute top-0 w-screen h-screen flex justify-center items-center blur-bg">
-        <div className="min-w-[33%] min-h-[20%] bg-slate-200 rounded-md shadow-lg relative">
-          <div className="flex p-10">
-            <label for="name" className="mr-2">Nome da instalação</label>
-            <input className="mr-4 w-full P-2" type="text" name="name"/>
-          </div>
-          <div className="absolute bottom-0 w-full flex justify-end items-center">
-            <Button name="Cancelar" color="bg-red-600" fontColor="text-slate-100" classComplement="m-2" effect={() => {setCreationModalOpen(false)}}/>
-            <Button name="Criar instalação" color="bg-green-600" fontColor="text-slate-100" classComplement="m-2"/>
-          </div>
-        </div>
-      </div>}
+        <ProjectCreationModal 
+          setOpen={() => {setCreationModalOpen(true)}} 
+          setClose={() => {setCreationModalOpen(false)}}
+          onComplete={(name: string) => {
+            API.createProject({ name });
+            setCreationModalOpen(false);
+          }}
+        />
+      }
     </div>
   )
 }

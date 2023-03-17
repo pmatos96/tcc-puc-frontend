@@ -1,13 +1,13 @@
 import { MouseEventHandler } from "react";
 
-type EffectFunction = MouseEventHandler<HTMLDivElement>
+type EffectFunction = Function
 interface ButtonProps {
     name: string;
     iconName?: string;
     color?: string;
     fontColor?: string;
     classComplement?: string;
-    effect?: EffectFunction;
+    effect?: Function;
 }
 
 export default function Button({ name, iconName, color, fontColor, classComplement, effect}: ButtonProps){
