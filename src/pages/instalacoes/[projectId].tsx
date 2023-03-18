@@ -4,11 +4,32 @@ import LampsBoard from "../../components/lamps/lampsBoard";
 import MotorsBoard from "../../components/motors/motorsBoard";
 import TransformersAndWeldingMachinesBoard from "../../components/transformers-and-welding-machines/transformersAndWeldingMachinesBoard";
 import OutletsBoard from "../../components/outlets/outletsBoard";
+import { useRouter } from "next/router.js";
+import { useEffect, useState } from "react";
+import API from "../../services/api";
 
 export default function Home(props: any) {
+
+  const router = useRouter();
+  const { projectId } = router.query as { projectId: string };
+
+  const [projectData, setProjectData] = useState();
+
+  async function initializeProjectData(){
+    
+    const data = await API.getProjectById(projectId);
+
+    setProjectData(data);
+  }
+
+  useEffect(() => {
+    initializeProjectData();
+  }, [])
+
   return (
     <div className="bg-slate-100 w-screen min-h-screen">
       <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
+      <h2>{projectData?.name}</h2>
       <div className="w-full h-full flex flex-col justify-start">
         <EquipmentsBoard equipmentOptions={props.equipmentOptions}/>
         <MotorsBoard equipmentOptions={props.motorOptions}/>

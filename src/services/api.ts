@@ -16,6 +16,8 @@ export default class API {
         }).catch(error => {
             console.error(error);
         });
+
+        return createdProject;
     }
 
     static async getProjects(){
@@ -32,5 +34,18 @@ export default class API {
         });
 
         return userProjects;
+    }
+
+    static async getProjectById(id: string){
+        console.log(id)
+        const project = await axios.get(this.BASE_URL + 'projects/' + id)
+        .then(response => {
+            console.log(response.data)
+            return response.data.project;
+        }).catch(error => {
+            console.error(error);
+        });
+
+        return project;
     }
 }

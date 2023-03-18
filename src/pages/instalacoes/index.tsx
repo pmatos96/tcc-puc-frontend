@@ -2,22 +2,14 @@ import Button from "@/src/components/common/Button";
 import ProjectCreationModal from "@/src/components/instalacoes/projectCreationModal";
 import ProjectBoard from "@/src/components/projects/ProjectBoard"
 import API from "@/src/services/api";
+import { useRouter } from "next/router";
 import { useState } from "react"
 
 export default function Projects({ projects }: any) {
 
-    const [creationModalOpen, setCreationModalOpen] = useState(false);
+    const router = useRouter();
 
-    // const projects = [
-    //     {
-    //         name: "Minha casa",
-    //         createdAt: new Date(),
-    //     },
-    //     {
-    //         name: "Casinha do cachorro",
-    //         createdAt: new Date(),
-    //     }
-    // ]
+    const [creationModalOpen, setCreationModalOpen] = useState(false);
 
   return (
     <div className="bg-slate-100 w-screen min-h-screen">
@@ -32,9 +24,10 @@ export default function Projects({ projects }: any) {
         <ProjectCreationModal 
           setOpen={() => {setCreationModalOpen(true)}} 
           setClose={() => {setCreationModalOpen(false)}}
-          onComplete={(name: string) => {
-            API.createProject({ name });
+          onComplete={async (name: string) => {
+            let newProject = await API.createProject({ name });
             setCreationModalOpen(false);
+            router.push("/instalacoes/[projectId]", '/instalacoes/' + newProject.id);
           }}
         />
       }
