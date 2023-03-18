@@ -10,14 +10,14 @@ interface ProjectBoardProps {
 }
 
 export default function ProjectBoard ({ name, creationDate, newProjectEffect }: ProjectBoardProps) {
-
+    
     return (
         <div className="flex w-2/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded text-slate-700">
             { name && creationDate ? 
                 <>
                     <div className="h-full w-1/2">
                         <BoardHeader title={name} iconName="bolt"/>
-                        Criado em: {creationDate.toLocaleDateString(
+                        Criado em: {new Date(creationDate).toLocaleDateString(
                             'pt-BR', 
                             { 
                                 day: '2-digit', 

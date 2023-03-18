@@ -17,4 +17,20 @@ export default class API {
             console.error(error);
         });
     }
+
+    static async getProjects(){
+
+        const userProjects = axios.get(this.BASE_URL + 'projects/', {
+            params:{
+                ownerId: "clcxsutm50000j938pytsfypo"
+            }
+        }).then(response => {
+
+            return response.data.projects;
+        }).catch(error => {
+            console.error(error);
+        });
+
+        return userProjects;
+    }
 }

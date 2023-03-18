@@ -4,20 +4,20 @@ import ProjectBoard from "@/src/components/projects/ProjectBoard"
 import API from "@/src/services/api";
 import { useState } from "react"
 
-export default function Projects() {
+export default function Projects({ projects }: any) {
 
     const [creationModalOpen, setCreationModalOpen] = useState(false);
 
-    const projects = [
-        {
-            name: "Minha casa",
-            createdAt: new Date(),
-        },
-        {
-            name: "Casinha do cachorro",
-            createdAt: new Date(),
-        }
-    ]
+    // const projects = [
+    //     {
+    //         name: "Minha casa",
+    //         createdAt: new Date(),
+    //     },
+    //     {
+    //         name: "Casinha do cachorro",
+    //         createdAt: new Date(),
+    //     }
+    // ]
 
   return (
     <div className="bg-slate-100 w-screen min-h-screen">
@@ -44,9 +44,10 @@ export default function Projects() {
 
 export const getServerSideProps = async () => {
 
+  const projects = await API.getProjects();
   return {
       props:{
-    
+        projects: projects
       }
   }
 }
