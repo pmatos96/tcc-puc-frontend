@@ -16,7 +16,7 @@ export default function Projects({ projects }: any) {
       <h1 className="text-black font-bold pb-2">Minhas instalações</h1>
       <div className="w-full h-full flex flex-col justify-center items-center">
         {projects.map(project => {
-            return <ProjectBoard name={project.name} creationDate={project.createdAt}/>
+            return <ProjectBoard name={project.name} creationDate={project.createdAt} id={project.id} key={project.id}/>
         })}
         <ProjectBoard newProjectEffect={() => {setCreationModalOpen(true)}}/>
       </div>

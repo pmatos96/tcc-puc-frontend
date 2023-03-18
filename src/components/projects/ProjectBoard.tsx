@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { MouseEventHandler } from "react";
 import BoardHeader from "../common/BoardHeader";
 import Button from "../common/Button";
@@ -7,10 +8,13 @@ interface ProjectBoardProps {
     name?: string;
     creationDate?: Date;
     newProjectEffect?: EffectFunction;
+    id: string;
 }
 
-export default function ProjectBoard ({ name, creationDate, newProjectEffect }: ProjectBoardProps) {
+export default function ProjectBoard ({ name, creationDate, newProjectEffect, id }: ProjectBoardProps) {
     
+    const router = useRouter();
+
     return (
         <div className="flex w-2/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded text-slate-700">
             { name && creationDate ? 
@@ -27,7 +31,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect }: 
                         )}
                     </div>
                     <div className="w-1/2 flex flex-col justify-around items-center">
-                        <Button name="Editar instalação" iconName="delete"/>
+                        <Button name="Editar instalação" iconName="delete" effect={() => {router.push("/instalacoes/[projectId]", '/instalacoes/' + id);}}/>
                         <Button name="Excluir instalação" iconName="delete" color="bg-red-500" fontColor="text-slate-100"/>
                     </div>
                 </>
