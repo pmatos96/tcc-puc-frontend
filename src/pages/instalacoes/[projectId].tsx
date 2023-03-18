@@ -7,8 +7,9 @@ import OutletsBoard from "../../components/outlets/outletsBoard";
 import { useRouter } from "next/router.js";
 import { useEffect, useState } from "react";
 import API from "../../services/api";
+import Button from "../../../src/components/common/Button";
 
-export default function Home(props: any) {
+export default function Project(props: any) {
 
   const router = useRouter();
   const { projectId } = router.query as { projectId: string };
@@ -36,6 +37,9 @@ export default function Home(props: any) {
         <LampsBoard equipmentOptions={props.lampOptions}/>
         <TransformersAndWeldingMachinesBoard equipmentOptions={props.transformerAndWeldingMachinesOptions}/>
         <OutletsBoard equipmentOptions={props.outletOptions} roomOptions={props.roomOptions}/>
+        <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
+          <Button name="Salvar instalação" classComplement="absolute top-24"/>
+        </div>
       </div>
     </div>
   )
