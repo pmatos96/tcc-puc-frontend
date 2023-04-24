@@ -5,7 +5,7 @@ import MotorsBoard from "../../components/motors/motorsBoard";
 import TransformersAndWeldingMachinesBoard from "../../components/transformers-and-welding-machines/transformersAndWeldingMachinesBoard";
 import OutletsBoard from "../../components/outlets/outletsBoard";
 import { useRouter } from "next/router.js";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import API from "../../services/api";
 import Button from "../../../src/components/common/Button";
 
@@ -16,15 +16,65 @@ export default function Project(props: any) {
 
   const [projectData, setProjectData] = useState();
 
+  const [itemsBoardComponents, setItemsBoardComponents] = useState([]);
+  
+  const [projectItems, setProjectItems] = useState({
+    "equipments": [],
+    "motors": [],
+    "lamps": [],
+    "transformersAndWeldMachines": [],
+    "outlets": []
+  });
+
+  const boardRefs = useRef([])
+
+  const addBoardRef = (ref) => {
+    boardRefs.current.push(ref);
+  };
+
+  const handleButtonClick = () => {
+    const boardData = boardRefs.current.map(ref => ref.getChildData());
+    console.log(boardData)
+    // const flattenedChildData = [].concat(...childData);
+    // setParentArray(flattenedChildData);
+  };
+
   async function initializeProjectData(){
     
     const data = await API.getProjectById(projectId);
 
     setProjectData(data);
   }
+  
+  function updateProjectItems(identifier: string, childItems: object[]){
+    setProjectItems(prevState => {
+
+      return {...prevState, [identifier]: childItems};
+    });
+  }
+
+  function handleSaveButton() {
+    // console.log(itemsBoardComponents)
+
+    boardRefs.current.forEach(boardRef => {
+      // board.props.updateProjectItems();
+      console.log(boardRef)
+    })
+
+  }
 
   useEffect(() => {
     initializeProjectData();
+
+    let boardComponents = [
+      <EquipmentsBoard onMount={addBoardRef} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>,
+      <MotorsBoard onMount={addBoardRef} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>,
+      <LampsBoard onMount={addBoardRef} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>,
+      <TransformersAndWeldingMachinesBoard onMount={addBoardRef} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>,
+      <OutletsBoard onMount={addBoardRef} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>,
+    ]
+
+    setItemsBoardComponents(boardComponents);
   }, [])
 
   return (
@@ -32,13 +82,9 @@ export default function Project(props: any) {
       <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
       <h2>{projectData?.name}</h2>
       <div className="w-full h-full flex flex-col justify-start">
-        <EquipmentsBoard equipmentOptions={props.equipmentOptions}/>
-        <MotorsBoard equipmentOptions={props.motorOptions}/>
-        <LampsBoard equipmentOptions={props.lampOptions}/>
-        <TransformersAndWeldingMachinesBoard equipmentOptions={props.transformerAndWeldingMachinesOptions}/>
-        <OutletsBoard equipmentOptions={props.outletOptions} roomOptions={props.roomOptions}/>
+        {itemsBoardComponents}
         <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
-          <Button name="Salvar instalação" classComplement="absolute top-24"/>
+          <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleButtonClick()}}/>
         </div>
       </div>
     </div>
