@@ -47,14 +47,13 @@ export default function Project(props: any) {
         [];
     });
 
+    let projectItemsData = {};
+
     boardsLastArraysData.forEach(boardStateData => {
-      setProjectItems(prevState => { 
-        return {
-          ...prevState,
-          [boardStateData.identifier]: boardStateData.equipmentItems
-        } 
-      });
+      projectItemsData[boardStateData.identifier] = boardStateData.equipmentItems;
     })
+
+    setProjectItems(projectItemsData);
   };
 
   async function initializeProjectData(){
@@ -71,11 +70,26 @@ export default function Project(props: any) {
     });
   }
 
+  function concatProjectItems (){
+    return Object.values(projectItems).flat();
+  }
+
+  async function saveProjectItems() {
+
+    const data = await API.createProjectItems({ projectItems: concatProjectItems(), projectId});
+
+    console.log("Itens cadastrados com sucesso.");
+  }
+
   function handleSaveButton() {
     
     groupProjectItemsState();
-
   }
+
+  useEffect(() => {
+
+    saveProjectItems();
+  }, [projectItems]);
 
   useEffect(() => {
     initializeProjectData();
