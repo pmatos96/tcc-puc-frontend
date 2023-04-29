@@ -42,6 +42,17 @@ export default function LampsBoard(props){
         );
     }
 
+    useEffect(() => {
+        props.onMount({ getChildData });
+    })
+
+    const getChildData = () => {
+        return {
+            equipmentItems,
+            identifier: "lamps"
+        };
+    };
+
     return (
         <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
             <BoardHeader title="Iluminação" iconName="emoji_objects"/>

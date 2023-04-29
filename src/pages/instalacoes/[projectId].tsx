@@ -32,11 +32,29 @@ export default function Project(props: any) {
     boardRefs.current.push(ref);
   };
 
-  const handleButtonClick = () => {
+  const groupProjectItemsState = () => {
+
     const boardData = boardRefs.current.map(ref => ref.getChildData());
-    console.log(boardData)
-    // const flattenedChildData = [].concat(...childData);
-    // setParentArray(flattenedChildData);
+
+    const flattenedBoardRefData = [].concat(...boardData);
+
+    const boardsLastArraysData = Object.keys(projectItems).map(key => {
+
+      let currentBoardData = flattenedBoardRefData.filter(data => data.identifier == key);
+
+      return currentBoardData && currentBoardData.length > 0 ? 
+        currentBoardData[currentBoardData.length - 1] :
+        [];
+    });
+
+    boardsLastArraysData.forEach(boardStateData => {
+      setProjectItems(prevState => { 
+        return {
+          ...prevState,
+          [boardStateData.identifier]: boardStateData.equipmentItems
+        } 
+      });
+    })
   };
 
   async function initializeProjectData(){
@@ -54,12 +72,8 @@ export default function Project(props: any) {
   }
 
   function handleSaveButton() {
-    // console.log(itemsBoardComponents)
-
-    boardRefs.current.forEach(boardRef => {
-      // board.props.updateProjectItems();
-      console.log(boardRef)
-    })
+    
+    groupProjectItemsState();
 
   }
 
@@ -84,7 +98,7 @@ export default function Project(props: any) {
       <div className="w-full h-full flex flex-col justify-start">
         {itemsBoardComponents}
         <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
-          <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleButtonClick()}}/>
+          <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleSaveButton()}}/>
         </div>
       </div>
     </div>
