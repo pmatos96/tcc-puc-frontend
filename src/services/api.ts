@@ -14,10 +14,6 @@ type ProjectItem = {
     voltage?: number,
 }
 
-interface ProjectItemsCreationInput {
-    projectId: string,
-    projectItems: ProjectItem[]
-}
 
 export default class API {
     static BASE_URL = "http://localhost:3333/";
@@ -34,7 +30,7 @@ export default class API {
         return createdProject;
     }
 
-    static async createProjectItems({ projectItems, projectId }: ProjectItemsCreationInput){
+    static async createProjectItems({ projectItems, projectId }){
 
         const createdItems = axios.post(this.BASE_URL + 'projects/' + projectId + '/items', {
             projectItems, projectId

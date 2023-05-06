@@ -70,13 +70,9 @@ export default function Project(props: any) {
     });
   }
 
-  function concatProjectItems (){
-    return Object.values(projectItems).flat();
-  }
-
   async function saveProjectItems() {
 
-    const data = await API.createProjectItems({ projectItems: concatProjectItems(), projectId});
+    const data = await API.createProjectItems({ projectItems, projectId});
   }
 
   function handleSaveButton() {
