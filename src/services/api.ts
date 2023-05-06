@@ -64,15 +64,24 @@ export default class API {
     }
 
     static async getProjectById(id: string){
-        console.log(id)
         const project = await axios.get(this.BASE_URL + 'projects/' + id)
         .then(response => {
-            console.log(response.data)
             return response.data.project;
         }).catch(error => {
             console.error(error);
         });
 
         return project;
+    }
+
+    static async getProjectItems(projectId: string){
+        const projectItems = await axios.get(this.BASE_URL + "projects/" + projectId + "/items")
+        .then(response => {
+            return response.data.projectItems;
+        }).catch(error => {
+            console.error(error);
+        });
+
+        return projectItems;
     }
 }
