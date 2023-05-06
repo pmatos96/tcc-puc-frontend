@@ -77,8 +77,6 @@ export default function Project(props: any) {
   async function saveProjectItems() {
 
     const data = await API.createProjectItems({ projectItems: concatProjectItems(), projectId});
-
-    console.log("Itens cadastrados com sucesso.");
   }
 
   function handleSaveButton() {

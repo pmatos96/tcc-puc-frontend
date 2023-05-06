@@ -19,7 +19,7 @@ export default function MotorProjectItemLine({ equipmentItem, onRemove, onChange
                 }
             </select>
             <label className="mr-3" for="amount">Quantidade:</label>
-            <input className="mr-4" type="text" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
+            <input className="mr-4" type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
             <label className="mr-3" for="voltage">Tensão (V):</label>
             <select className="mr-4" name="voltage" id="voltage" onChange={handleInputChange}>
                 <option value="127">127</option>
