@@ -13,7 +13,7 @@ export default function EquipmentProjectItemLine({ equipmentItem, onRemove, onCh
             <select className="mr-4" name="equipmentId" id="equipmentId" onChange={handleInputChange}>
                 {
                     (equipmentOptions || []).map((optionItem, index) => {
-                        return <option value={optionItem.id}>{optionItem.name}</option>
+                        return <option value={optionItem.id} selected={equipmentItem.equipmentId == optionItem.id}>{optionItem.name}</option>
                     })
                 }
             </select>

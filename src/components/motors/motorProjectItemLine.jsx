@@ -13,7 +13,7 @@ export default function OutletProjectItemLine({ equipmentItem, onRemove, onChang
             <select className="mr-4" name="equipmentId" id="equipmentId" onChange={handleInputChange}>
                 {
                     (equipmentOptions || []).map((optionItem, index) => {
-                        return <option value={optionItem.id}>{optionItem.name}</option>
+                        return <option value={optionItem.id} selected={equipmentItem.equipmentId == optionItem.id}>{optionItem.name}</option>
                     })
                 }
             </select>
@@ -23,8 +23,8 @@ export default function OutletProjectItemLine({ equipmentItem, onRemove, onChang
             <input className="mr-3" type="number" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
             <label className="mr-3" for="phasesNumber">Tipo:</label>
             <select className="mr-4" name="phasesNumber" id="phasesNumber" onChange={handleInputChange}>
-                <option value="1">Monofásico</option>
-                <option value="3">Trifásico</option>
+                <option value="1" selected={equipmentItem.phasesNumber == 1}>Monofásico</option>
+                <option value="3" selected={equipmentItem.phasesNumber == 3}>Trifásico</option>
             </select>
             <DeleteLineButton show={linesAmount > 0} onRemove={() => onRemove(equipmentItem.id)}/>
         </div>
