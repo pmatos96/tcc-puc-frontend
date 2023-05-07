@@ -112,7 +112,7 @@ export default function Project(props: any) {
       <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
       <h2>{projectData?.name}</h2>
       <div className="w-full h-full flex flex-col justify-start">
-        <EquipmentsBoard initialItems={projectItems.equipments} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
+        <EquipmentsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
         <MotorsBoard initialItems={projectItems.motors} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
         <LampsBoard initialItems={projectItems.lamps} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
         <TransformersAndWeldingMachinesBoard isEditing={isEditing} initialItems={projectItems.transformersAndWeldMachines} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
