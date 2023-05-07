@@ -33,29 +33,29 @@ export default function Project(props: any) {
     boardRefs.current.push(ref);
   };
 
-  const groupProjectItemsState = () => {
+  // const groupProjectItemsState = () => {
 
-    const boardData = boardRefs.current.map(ref => ref.getChildData());
+  //   const boardData = boardRefs.current.map(ref => ref.getChildData());
 
-    const flattenedBoardRefData = [].concat(...boardData);
+  //   const flattenedBoardRefData = [].concat(...boardData);
 
-    const boardsLastArraysData = Object.keys(projectItems).map(key => {
+  //   const boardsLastArraysData = Object.keys(projectItems).map(key => {
 
-      let currentBoardData = flattenedBoardRefData.filter(data => data.identifier == key);
+  //     let currentBoardData = flattenedBoardRefData.filter(data => data.identifier == key);
 
-      return currentBoardData && currentBoardData.length > 0 ? 
-        currentBoardData[currentBoardData.length - 1] :
-        [];
-    });
+  //     return currentBoardData && currentBoardData.length > 0 ? 
+  //       currentBoardData[currentBoardData.length - 1] :
+  //       [];
+  //   });
 
-    let projectItemsData = {};
+  //   let projectItemsData = {};
 
-    boardsLastArraysData.forEach(boardStateData => {
-      projectItemsData[boardStateData.identifier] = boardStateData.equipmentItems;
-    })
+  //   boardsLastArraysData.forEach(boardStateData => {
+  //     projectItemsData[boardStateData.identifier] = boardStateData.equipmentItems;
+  //   })
 
-    setProjectItems(projectItemsData);
-  };
+  //   setProjectItems(projectItemsData);
+  // };
 
   async function initializeProjectData(){
     
@@ -86,13 +86,14 @@ export default function Project(props: any) {
   async function saveProjectItems() {
 
     await API.createProjectItems({ projectItems, projectId});
-    setIsSaving(false);
   }
 
   function handleSaveButton() {
     
-    groupProjectItemsState();
+    // groupProjectItemsState();
     setIsSaving(true);
+    saveProjectItems();
+    setIsSaving(false);
   }
 
   useEffect(() => {
@@ -113,10 +114,10 @@ export default function Project(props: any) {
       <h2>{projectData?.name}</h2>
       <div className="w-full h-full flex flex-col justify-start">
         <EquipmentsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
-        <MotorsBoard initialItems={projectItems.motors} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
-        <LampsBoard initialItems={projectItems.lamps} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
-        <TransformersAndWeldingMachinesBoard isEditing={isEditing} initialItems={projectItems.transformersAndWeldMachines} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
-        <OutletsBoard initialItems={projectItems.outlets} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>
+        <MotorsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
+        <LampsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
+        <TransformersAndWeldingMachinesBoard isEditing={isEditing} items={projectItems} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
+        <OutletsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>
         <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
           <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleSaveButton()}}/>
         </div>

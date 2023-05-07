@@ -28,6 +28,10 @@ export default function EquipmentsBoard(props){
     }
 
     function handleRemove(id) {
+        
+        if(!props.isEditing)
+            props.setIsEditing(true);
+
         props.updateProjectItems(
             boardType,
             props.items[boardType].filter(equipmentItem => equipmentItem.id !== id)
