@@ -30,7 +30,7 @@ export default function MotorProjectItemLine({ equipmentItem, onRemove, onChange
                 <option value="10">10</option>
                 <option value="20">20</option>
             </select>
-            <DeleteLineButton show={linesAmount > 1} onRemove={() => onRemove(equipmentItem.id)}/>
+            <DeleteLineButton show={linesAmount > 0} onRemove={() => onRemove(equipmentItem.id)}/>
         </div>
     )
 }

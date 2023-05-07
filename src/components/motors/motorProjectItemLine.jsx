@@ -26,7 +26,7 @@ export default function OutletProjectItemLine({ equipmentItem, onRemove, onChang
                 <option value="1">Monofásico</option>
                 <option value="3">Trifásico</option>
             </select>
-            <DeleteLineButton show={linesAmount > 1} onRemove={() => onRemove(equipmentItem.id)}/>
+            <DeleteLineButton show={linesAmount > 0} onRemove={() => onRemove(equipmentItem.id)}/>
         </div>
     )
 }

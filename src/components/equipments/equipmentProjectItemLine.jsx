@@ -21,7 +21,7 @@ export default function EquipmentProjectItemLine({ equipmentItem, onRemove, onCh
             <input className="mr-4" type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
             <label className="mr-3" for="power">Potência:</label>
             <input className="mr-4" type="number" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
-            <DeleteLineButton show={linesAmount > 1} onRemove={() => onRemove(equipmentItem.id)}/>
+            <DeleteLineButton show={linesAmount > 0} onRemove={() => onRemove(equipmentItem.id)}/>
         </div>
     )
 }
