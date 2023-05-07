@@ -25,7 +25,8 @@ export default function Project(props: any) {
     "transformersAndWeldMachines": [],
     "outlets": []
   });
-
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
   const boardRefs = useRef([])
 
   const addBoardRef = (ref) => {
@@ -59,10 +60,22 @@ export default function Project(props: any) {
   async function initializeProjectData(){
     
     const data = await API.getProjectById(projectId);
-
     setProjectData(data);
   }
   
+  async function initializeProjectItems(){
+
+    const items = await API.getProjectItems(projectId);
+
+    let projectItemsMap = {};
+
+    Object.keys(projectItems).forEach(boardType => {
+      projectItemsMap[boardType] = items.filter(item => item.boardType == boardType);
+    })
+
+    setProjectItems(projectItemsMap);
+  }
+
   function updateProjectItems(identifier: string, childItems: object[]){
     setProjectItems(prevState => {
 
@@ -72,31 +85,26 @@ export default function Project(props: any) {
 
   async function saveProjectItems() {
 
-    const data = await API.createProjectItems({ projectItems, projectId});
+    await API.createProjectItems({ projectItems, projectId});
+    setIsSaving(false);
   }
 
   function handleSaveButton() {
     
     groupProjectItemsState();
+    setIsSaving(true);
   }
 
   useEffect(() => {
 
-    saveProjectItems();
-  }, [projectItems]);
+    if(isSaving)
+      saveProjectItems();
+
+  }, [isSaving]);
 
   useEffect(() => {
     initializeProjectData();
-
-    let boardComponents = [
-      <EquipmentsBoard onMount={addBoardRef} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>,
-      <MotorsBoard onMount={addBoardRef} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>,
-      <LampsBoard onMount={addBoardRef} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>,
-      <TransformersAndWeldingMachinesBoard onMount={addBoardRef} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>,
-      <OutletsBoard onMount={addBoardRef} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>,
-    ]
-
-    setItemsBoardComponents(boardComponents);
+    initializeProjectItems();
   }, [])
 
   return (
@@ -104,7 +112,11 @@ export default function Project(props: any) {
       <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
       <h2>{projectData?.name}</h2>
       <div className="w-full h-full flex flex-col justify-start">
-        {itemsBoardComponents}
+        <EquipmentsBoard initialItems={projectItems.equipments} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
+        <MotorsBoard initialItems={projectItems.motors} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
+        <LampsBoard initialItems={projectItems.lamps} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
+        <TransformersAndWeldingMachinesBoard isEditing={isEditing} initialItems={projectItems.transformersAndWeldMachines} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
+        <OutletsBoard initialItems={projectItems.outlets} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>
         <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
           <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleSaveButton()}}/>
         </div>
