@@ -3,6 +3,7 @@ import { MouseEventHandler, useState } from "react";
 import BoardHeader from "../common/BoardHeader";
 import Button from "../common/Button";
 import ProjectDeletionModal from "../instalacoes/ProjectDeletionModal";
+import API from "@/src/services/api";
 
 type EffectFunction = MouseEventHandler<HTMLDivElement>
 interface ProjectBoardProps {
@@ -19,6 +20,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
     const router = useRouter();
 
     function deleteProject(){
+        API.deleteProject({ id })
         setIsInDeletion(false);
     }
 

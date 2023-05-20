@@ -5,6 +5,10 @@ interface CreateProjectParams {
     name: string;
 }
 
+interface DeleteProjectParams {
+    id: string;
+}
+
 type ProjectItem = {
     equipmentId: string
     power: number,
@@ -28,6 +32,15 @@ export default class API {
         });
 
         return createdProject;
+    }
+
+    static async deleteProject({ id }: DeleteProjectParams){
+        axios.delete(this.BASE_URL + 'projects/' + id).then(response => {
+            console.log("Instalação deletada com sucesso!");
+            return true;
+        }).catch(error => {
+            console.error(error);
+        });
     }
 
     static async createProjectItems({ projectItems, projectId }){
