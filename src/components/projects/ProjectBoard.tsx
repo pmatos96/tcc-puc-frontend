@@ -4,6 +4,7 @@ import BoardHeader from "../common/BoardHeader";
 import Button from "../common/Button";
 import ProjectDeletionModal from "../instalacoes/ProjectDeletionModal";
 import API from "@/src/services/api";
+import Spinner from "../common/Spinner";
 
 type EffectFunction = MouseEventHandler<HTMLDivElement>
 interface ProjectBoardProps {
@@ -16,12 +17,18 @@ interface ProjectBoardProps {
 export default function ProjectBoard ({ name, creationDate, newProjectEffect, id }: ProjectBoardProps) {
     
     const [isInDeletion, setIsInDeletion] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const router = useRouter();
 
-    function deleteProject(){
-        API.deleteProject({ id })
+    async function deleteProject(){
+
+        setLoading(true);
         setIsInDeletion(false);
+        await API.deleteProject({ id })
+        setLoading(false);
+
+        router.push('/instalacoes');
     }
 
     return (
@@ -32,6 +39,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
                 setClose={() => {setIsInDeletion(false)}}
                 onComplete={deleteProject}
             />}
+            <Spinner loading={loading}/>
             { name && creationDate ? 
                 <>
                     <div className="h-full w-1/2">
