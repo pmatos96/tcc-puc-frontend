@@ -12,7 +12,7 @@ export default function ProjectCreationModal({ setOpen, setClose, onComplete }: 
     const [projectName, setProjectName] = useState("");
 
     return (
-        <div className="absolute top-0 w-screen h-screen flex justify-center items-center blur-bg">
+        <div className="fixed inset-0 flex justify-center items-center blur-bg">
         <div className="min-w-[33%] min-h-[20%] bg-slate-200 rounded-md shadow-lg relative">
           <div className="flex p-10">
             <label for="name" className="mr-2">Nome da instalação</label>

@@ -1,7 +1,8 @@
 import { useRouter } from "next/router";
-import { MouseEventHandler } from "react";
+import { MouseEventHandler, useState } from "react";
 import BoardHeader from "../common/BoardHeader";
 import Button from "../common/Button";
+import ProjectDeletionModal from "../instalacoes/ProjectDeletionModal";
 
 type EffectFunction = MouseEventHandler<HTMLDivElement>
 interface ProjectBoardProps {
@@ -13,10 +14,22 @@ interface ProjectBoardProps {
 
 export default function ProjectBoard ({ name, creationDate, newProjectEffect, id }: ProjectBoardProps) {
     
+    const [isInDeletion, setIsInDeletion] = useState(false);
+
     const router = useRouter();
+
+    function deleteProject(){
+        setIsInDeletion(false);
+    }
 
     return (
         <div className="flex w-2/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded text-slate-700">
+            {isInDeletion && 
+            <ProjectDeletionModal 
+                setOpen={() => {setIsInDeletion(true)}}
+                setClose={() => {setIsInDeletion(false)}}
+                onComplete={deleteProject}
+            />}
             { name && creationDate ? 
                 <>
                     <div className="h-full w-1/2">
@@ -32,7 +45,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
                     </div>
                     <div className="w-1/2 flex flex-col justify-around items-center">
                         <Button name="Editar instalação" iconName="delete" effect={() => {router.push("/instalacoes/[projectId]", '/instalacoes/' + id);}}/>
-                        <Button name="Excluir instalação" iconName="delete" color="bg-red-500" fontColor="text-slate-100"/>
+                        <Button name="Excluir instalação" iconName="delete" color="bg-red-500" fontColor="text-slate-100" effect={() => {setIsInDeletion(true)}}/>
                     </div>
                 </>
                 :
