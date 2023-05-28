@@ -8,6 +8,7 @@ import { useRouter } from "next/router.js";
 import { useEffect, useRef, useState } from "react";
 import API from "../../services/api";
 import Button from "../../../src/components/common/Button";
+import Spinner from "../../../src/components/common/Spinner";
 
 export default function Project(props: any) {
 
@@ -27,7 +28,7 @@ export default function Project(props: any) {
   });
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
-  const boardRefs = useRef([])
+  const [loading, setLoading] = useState(false);
 
   async function initializeProjectData(){
     
@@ -57,12 +58,11 @@ export default function Project(props: any) {
   }
 
   async function saveProjectItems() {
-
+    await new Promise(resolve => setTimeout(resolve, 3000));
     await API.createProjectItems({ projectItems, projectId});
   }
 
   function handleSaveButton() {
-    
     setIsSaving(true);
     saveProjectItems();
     setIsSaving(false);
@@ -85,6 +85,7 @@ export default function Project(props: any) {
     <div className="bg-slate-100 w-screen min-h-screen">
       <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
       <h2>{projectData?.name}</h2>
+      <Spinner loading={loading}/>
       <div className="w-full h-full flex flex-col justify-start">
         <EquipmentsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
         <MotorsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
