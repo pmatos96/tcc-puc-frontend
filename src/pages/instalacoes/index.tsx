@@ -1,4 +1,5 @@
 import Button from "@/src/components/common/Button";
+import Spinner from "@/src/components/common/Spinner";
 import ProjectCreationModal from "@/src/components/instalacoes/projectCreationModal";
 import ProjectBoard from "@/src/components/projects/ProjectBoard"
 import API from "@/src/services/api";
@@ -10,10 +11,12 @@ export default function Projects({ projects }: any) {
     const router = useRouter();
 
     const [creationModalOpen, setCreationModalOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
   return (
     <div className="bg-slate-100 w-screen min-h-screen">
       <h1 className="text-black font-bold pb-2">Minhas instalações</h1>
+      <Spinner loading={loading}/>
       <div className="w-full h-full flex flex-col justify-center items-center">
         {projects.map(project => {
             return <ProjectBoard name={project.name} creationDate={project.createdAt} id={project.id} key={project.id}/>
@@ -25,7 +28,9 @@ export default function Projects({ projects }: any) {
           setOpen={() => {setCreationModalOpen(true)}} 
           setClose={() => {setCreationModalOpen(false)}}
           onComplete={async (name: string) => {
+            setLoading(true);
             let newProject = await API.createProject({ name });
+            setLoading(false);
             setCreationModalOpen(false);
             router.push("/instalacoes/[projectId]", '/instalacoes/' + newProject.id);
           }}
