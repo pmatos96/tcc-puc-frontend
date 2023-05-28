@@ -28,7 +28,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
         await API.deleteProject({ id })
         setLoading(false);
 
-        router.push('/instalacoes');
+        router.reload();
     }
 
     return (
