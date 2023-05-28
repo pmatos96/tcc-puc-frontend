@@ -5,6 +5,7 @@ import Button from "../common/Button";
 import ProjectDeletionModal from "../instalacoes/ProjectDeletionModal";
 import API from "@/src/services/api";
 import Spinner from "../common/Spinner";
+import Message from "../common/Message";
 
 type EffectFunction = MouseEventHandler<HTMLDivElement>
 interface ProjectBoardProps {
@@ -18,6 +19,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
     
     const [isInDeletion, setIsInDeletion] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [showMessage, setShowMessage] = useState(false);
 
     const router = useRouter();
 
@@ -27,7 +29,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
         setIsInDeletion(false);
         await API.deleteProject({ id })
         setLoading(false);
-
+        setShowMessage(true);
         router.reload();
     }
 
@@ -40,6 +42,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
                 onComplete={deleteProject}
             />}
             <Spinner loading={loading}/>
+            <Message text="Instalação excluída com sucesso!" type="positive" show={showMessage} setShow={setShowMessage}/>
             { name && creationDate ? 
                 <>
                     <div className="h-full w-1/2">
