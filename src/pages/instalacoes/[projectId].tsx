@@ -29,34 +29,6 @@ export default function Project(props: any) {
   const [isSaving, setIsSaving] = useState(false);
   const boardRefs = useRef([])
 
-  const addBoardRef = (ref) => {
-    boardRefs.current.push(ref);
-  };
-
-  // const groupProjectItemsState = () => {
-
-  //   const boardData = boardRefs.current.map(ref => ref.getChildData());
-
-  //   const flattenedBoardRefData = [].concat(...boardData);
-
-  //   const boardsLastArraysData = Object.keys(projectItems).map(key => {
-
-  //     let currentBoardData = flattenedBoardRefData.filter(data => data.identifier == key);
-
-  //     return currentBoardData && currentBoardData.length > 0 ? 
-  //       currentBoardData[currentBoardData.length - 1] :
-  //       [];
-  //   });
-
-  //   let projectItemsData = {};
-
-  //   boardsLastArraysData.forEach(boardStateData => {
-  //     projectItemsData[boardStateData.identifier] = boardStateData.equipmentItems;
-  //   })
-
-  //   setProjectItems(projectItemsData);
-  // };
-
   async function initializeProjectData(){
     
     const data = await API.getProjectById(projectId);
@@ -81,6 +53,7 @@ export default function Project(props: any) {
 
       return {...prevState, [identifier]: childItems};
     });
+    setIsEditing(true)
   }
 
   async function saveProjectItems() {
@@ -90,10 +63,10 @@ export default function Project(props: any) {
 
   function handleSaveButton() {
     
-    // groupProjectItemsState();
     setIsSaving(true);
     saveProjectItems();
     setIsSaving(false);
+    setIsEditing(false);
   }
 
   useEffect(() => {
@@ -113,14 +86,16 @@ export default function Project(props: any) {
       <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
       <h2>{projectData?.name}</h2>
       <div className="w-full h-full flex flex-col justify-start">
-        <EquipmentsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
-        <MotorsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
-        <LampsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
-        <TransformersAndWeldingMachinesBoard isEditing={isEditing} items={projectItems} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
-        <OutletsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} onMount={addBoardRef} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>
-        <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
-          <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleSaveButton()}}/>
-        </div>
+        <EquipmentsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
+        <MotorsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
+        <LampsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
+        <TransformersAndWeldingMachinesBoard isEditing={isEditing} items={projectItems} setIsEditing={setIsEditing} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
+        <OutletsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>
+        {isEditing && !isSaving && 
+          <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
+            <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleSaveButton()}}/>
+          </div>
+        }
       </div>
     </div>
   )
