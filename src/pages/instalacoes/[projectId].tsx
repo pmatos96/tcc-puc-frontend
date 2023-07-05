@@ -20,7 +20,7 @@ export default function Project(props: any) {
   const [projectData, setProjectData] = useState();
 
   const [itemsBoardComponents, setItemsBoardComponents] = useState([]);
-  
+  const [showErrors, setShowErrors] = useState(false);
   const [projectItems, setProjectItems] = useState({
     "equipments": [],
     "motors": [],
@@ -28,10 +28,44 @@ export default function Project(props: any) {
     "transformersAndWeldMachines": [],
     "outlets": []
   });
+
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [loading, setLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
+
+  const checkErrorByBoard = {
+    "equipments": !projectItems.equipments.every(item => {
+      return (
+        item.amount > 0 &&
+        item.power > 0
+      )
+    }),
+    "motors": !projectItems.motors.every(item => {
+      return (
+        item.amount > 0 &&
+        item.power > 0
+      )
+    }),
+    "lamps": !projectItems.lamps.every(item => {
+      return (
+        item.amount > 0 &&
+        item.power > 0
+      )
+    }),
+    "transformersAndWeldMachines": !projectItems.transformersAndWeldMachines.every(item => {
+      return (
+        item.amount > 0 &&
+        item.power > 0
+      )
+    }),
+    "outlets": !projectItems.outlets.every(item => {
+      return (
+        item.amount > 0 &&
+        item.power > 0
+      )
+    })
+  }
 
   async function initializeProjectData(){
     
@@ -60,11 +94,29 @@ export default function Project(props: any) {
     setIsEditing(true)
   }
 
+  function projectHasNoErrors(){
+
+    let boardKeysWithItems = Object.keys(projectItems).filter(key => {
+      return projectItems[key] && 
+        projectItems[key].length > 0
+    })
+    console.log(projectItems)
+    return boardKeysWithItems && 
+      boardKeysWithItems.length > 0 && 
+      boardKeysWithItems.every(key => {
+        return !checkErrorByBoard[key]
+      })
+  }
+
   async function saveProjectItems() {
-    setLoading(true);
-    await API.createProjectItems({ projectItems, projectId});
-    setLoading(false);
-    setShowMessage(true);
+    setShowErrors(true)
+    if(projectHasNoErrors()){
+      setLoading(true);
+      API.createProjectItems({ projectItems, projectId});
+      setLoading(false);
+      setShowMessage(true);
+      setShowErrors(false)
+    }
   }
 
   function handleSaveButton() {
@@ -93,11 +145,11 @@ export default function Project(props: any) {
       <Spinner loading={loading}/>
       <Message text="Instalação salva com sucesso!" type="positive" show={showMessage} setShow={setShowMessage}/>
       <div className="w-full h-full flex flex-col justify-start">
-        <EquipmentsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
-        <MotorsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
-        <LampsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
-        <TransformersAndWeldingMachinesBoard isEditing={isEditing} items={projectItems} setIsEditing={setIsEditing} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
-        <OutletsBoard items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>
+        <EquipmentsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
+        <MotorsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
+        <LampsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
+        <TransformersAndWeldingMachinesBoard showErrors={showErrors} isEditing={isEditing} items={projectItems} setIsEditing={setIsEditing} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
+        <OutletsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>
         {isEditing && !isSaving && 
           <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
             <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleSaveButton()}}/>

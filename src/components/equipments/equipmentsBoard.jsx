@@ -48,7 +48,7 @@ export default function EquipmentsBoard(props){
                 if (equipmentItem.id === id) {
                     return {
                     ...equipmentItem,
-                    power: name === 'equipmentId' ? props.equipmentOptions.find(item => item.id === value)?.power : equipmentItem.power,
+                    power: Number(name === 'equipmentId' ? props.equipmentOptions.find(item => item.id === value)?.power : equipmentItem.power),
                     [name]: value,
                     };
                 }
@@ -69,6 +69,7 @@ export default function EquipmentsBoard(props){
                         onRemove={() => handleRemove(equipmentItem.id)}
                         equipmentOptions={props.equipmentOptions}
                         linesAmount={props.items[boardType]?.length}
+                        showErrors={props.showErrors}
                     />
                 })}
             </div>
