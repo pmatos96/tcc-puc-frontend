@@ -68,6 +68,7 @@ export default function TransformersAndWeldingMachinesBoard(props){
                         onRemove={() => handleRemove(equipmentItem.id)}
                         equipmentOptions={props.equipmentOptions}
                         linesAmount={props.items[boardType]?.length}
+                        showErrors={props.showErrors}
                     />
                 })}
             </div>

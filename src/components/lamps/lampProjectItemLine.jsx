@@ -1,7 +1,25 @@
 import { useEffect } from "react";
 import DeleteLineButton from "../common/DeleteLineButton";
 
-export default function LampProjectItemLine({ equipmentItem, onRemove, onChange, equipmentOptions, linesAmount }){
+export default function LampProjectItemLine({ equipmentItem, onRemove, onChange, equipmentOptions, linesAmount, showErrors }){
+
+    function fieldHasError(fieldName){
+
+        const errorConditionsByFieldName = {
+          "amount": !equipmentItem.amount,
+          "power": !equipmentItem.power
+        }
+  
+        return errorConditionsByFieldName[fieldName]
+    }
+
+    function getErrorStyle(){
+        return "border border-red-500";
+    }
+
+    function verifyAndSetError(fieldName){
+        return fieldHasError(fieldName) && showErrors ? getErrorStyle() : "";
+    }
 
     function handleInputChange(e) {
         onChange({ name: e.target.name, value: e.target.value });
@@ -18,9 +36,11 @@ export default function LampProjectItemLine({ equipmentItem, onRemove, onChange,
                 }
             </select>
             <label className="mr-3" for="amount">Quantidade:</label>
-            <input className="mr-4" type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
+            <input className={"mr-4" + verifyAndSetError("amount")} type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
+            {fieldHasError("amount") && showErrors && <span className="text-red-500 mt-1">Campo obrigatório!</span>}
             <label className="mr-3" for="power">Potência:</label>
-            <input className="mr-4" type="number" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
+            <input className={"mr-4" + verifyAndSetError("power")} type="number" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
+            {fieldHasError("power") && showErrors && <span className="text-red-500 mt-1">Campo obrigatório!</span>}
             <DeleteLineButton show={linesAmount > 0} onRemove={() => onRemove(equipmentItem.id)}/>
         </div>
     )

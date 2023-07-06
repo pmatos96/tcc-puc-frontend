@@ -36,7 +36,7 @@ export default function EquipmentProjectItemLine({ equipmentItem, onRemove, onCh
                 }
             </select>
             <label className="mr-3" for="amount">Quantidade:</label>
-            <input className={"mr-4" + verifyAndSetError("name")} type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
+            <input className={"mr-4" + verifyAndSetError("amount")} type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
             {fieldHasError("amount") && showErrors && <span className="text-red-500 mt-1">Campo obrigatório!</span>}
             <label className="mr-3" for="power">Potência:</label>
             <input className={"mr-4" + verifyAndSetError("power")} type="number" name="power" onChange={handleInputChange} value={equipmentItem.power}/>

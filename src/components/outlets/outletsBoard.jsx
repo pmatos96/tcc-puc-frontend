@@ -79,6 +79,7 @@ export default function OutletsBoard(props){
                         roomOptions={props.roomOptions}
                         onRemove={() => handleRemove(equipmentItem.id)}
                         linesAmount={props.items[boardType]?.length}
+                        showErrors={props.showErrors}
                     />
                 })}
             </div>

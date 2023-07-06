@@ -1,7 +1,24 @@
 import { useEffect } from "react";
 import DeleteLineButton from "../common/DeleteLineButton";
 
-export default function MotorProjectItemLine({ equipmentItem, onRemove, onChange, roomOptions, linesAmount }){
+export default function MotorProjectItemLine({ equipmentItem, onRemove, onChange, roomOptions, linesAmount, showErrors }){
+
+    function fieldHasError(fieldName){
+
+        const errorConditionsByFieldName = {
+          "amount": !equipmentItem.amount
+        }
+  
+        return errorConditionsByFieldName[fieldName]
+    }
+  
+    function getErrorStyle(){
+        return "border border-red-500";
+    }
+  
+    function verifyAndSetError(fieldName){
+        return fieldHasError(fieldName) && showErrors ? getErrorStyle() : "";
+    }
 
     function handleInputChange(e) {
         onChange({ name: e.target.name, value: e.target.value });
@@ -19,7 +36,8 @@ export default function MotorProjectItemLine({ equipmentItem, onRemove, onChange
                 }
             </select>
             <label className="mr-3" for="amount">Quantidade:</label>
-            <input className="mr-4" type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
+            <input className={"mr-4" + verifyAndSetError("amount")} type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
+            {fieldHasError("amount") && showErrors && <span className="text-red-500 mt-1">Campo obrigatório!</span>}
             <label className="mr-3" for="voltage">Tensão (V):</label>
             <select className="mr-4" name="voltage" id="voltage" onChange={handleInputChange}>
                 <option value="127" selected={equipmentItem.voltage == 127}>127</option>
