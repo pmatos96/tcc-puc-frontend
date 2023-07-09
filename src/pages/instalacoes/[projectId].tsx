@@ -34,37 +34,40 @@ export default function Project(props: any) {
   const [loading, setLoading] = useState(false);
   const [showMessage, setShowMessage] = useState(false);
 
-  const checkErrorByBoard = {
-    "equipments": !projectItems.equipments.every(item => {
-      return (
-        item.amount > 0 &&
-        item.power > 0
-      )
-    }),
-    "motors": !projectItems.motors.every(item => {
-      return (
-        item.amount > 0 &&
-        item.power > 0
-      )
-    }),
-    "lamps": !projectItems.lamps.every(item => {
-      return (
-        item.amount > 0 &&
-        item.power > 0
-      )
-    }),
-    "transformersAndWeldMachines": !projectItems.transformersAndWeldMachines.every(item => {
-      return (
-        item.amount > 0 &&
-        item.power > 0
-      )
-    }),
-    "outlets": !projectItems.outlets.every(item => {
-      return (
-        item.amount > 0 &&
-        item.power > 0
-      )
-    })
+  const checkErrorByBoardKey = (key) => {
+    const errorConditionsMap = {
+      "equipments": !projectItems.equipments.every(item => {
+        return (
+          item.amount > 0 &&
+          item.power > 0
+        )
+      }),
+      "motors": !projectItems.motors.every(item => {
+        return (
+          item.amount > 0 &&
+          item.power > 0
+        )
+      }),
+      "lamps": !projectItems.lamps.every(item => {
+        return (
+          item.amount > 0 &&
+          item.power > 0
+        )
+      }),
+      "transformersAndWeldMachines": !projectItems.transformersAndWeldMachines.every(item => {
+        return (
+          item.amount > 0 &&
+          item.power > 0
+        )
+      }),
+      "outlets": !projectItems.outlets.every(item => {
+        return (
+          item.amount > 0
+        )
+      })
+    }
+
+    return errorConditionsMap[key]
   }
 
   async function initializeProjectData(){
@@ -100,16 +103,18 @@ export default function Project(props: any) {
       return projectItems[key] && 
         projectItems[key].length > 0
     })
-    console.log(projectItems)
+    
     return boardKeysWithItems && 
       boardKeysWithItems.length > 0 && 
       boardKeysWithItems.every(key => {
-        return !checkErrorByBoard[key]
+        console.log(checkErrorByBoardKey(key), key)
+        return !checkErrorByBoardKey(key)
       })
   }
 
   async function saveProjectItems() {
     setShowErrors(true)
+    console.log(projectHasNoErrors())
     if(projectHasNoErrors()){
       setLoading(true);
       API.createProjectItems({ projectItems, projectId});
