@@ -45,15 +45,19 @@ export default class API {
 
     static async createProjectItems({ projectItems, projectId }){
 
-        const createdItems = axios.post(this.BASE_URL + 'projects/' + projectId + '/items', {
-            projectItems, projectId
-        }).then(response => {
+        try {
+            let response = await axios.post(this.BASE_URL + 'projects/' + projectId + '/items', {
+                projectItems, projectId
+            })
+            
             return response.data;
-        }).catch(error => {
-            console.error(error);
-        })
-
-        return createdItems;
+        }
+        catch(error){
+            return {
+                error: true,
+                message: error.response.data.error
+            }
+        }
     }
 
     static async getProjects(){

@@ -25,7 +25,12 @@ function Message ({ text, type, show, setShow }: MessageInput){
     useEffect(() => {
         if(show){
             setIsShowing(true);
-            setShow(false);
+            setShow((prevState: any) => {
+                return {
+                    ...prevState,
+                    show: false
+                }
+            });
         }
     }, [show])
 

@@ -19,7 +19,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
     
     const [isInDeletion, setIsInDeletion] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [showMessage, setShowMessage] = useState(false);
+    const [showMessageData, setShowMessageData] = useState({show: false, message:"", type: "positive"});
 
     const router = useRouter();
 
@@ -27,9 +27,16 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
 
         setLoading(true);
         setIsInDeletion(false);
-        await API.deleteProject({ id })
+        let messageData;
+        try{
+            await API.deleteProject({ id });
+            messageData = {show: true, message: "Instalação excluída com sucesso!", type: "positive"};
+        }
+        catch(err){
+            messageData = {show: true, message: "Erro ao excluir instalação", type: "negative"};
+        }
         setLoading(false);
-        setShowMessage(true);
+        setShowMessageData(messageData);
         router.reload();
     }
 
@@ -42,7 +49,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
                 onComplete={deleteProject}
             />}
             <Spinner loading={loading}/>
-            <Message text="Instalação excluída com sucesso!" type="positive" show={showMessage} setShow={setShowMessage}/>
+            <Message text={showMessageData.message} type={showMessageData.type} show={showMessageData.show} setShow={setShowMessageData}/>
             { name && creationDate ? 
                 <>
                     <div className="h-full w-1/2">

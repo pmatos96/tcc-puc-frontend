@@ -32,7 +32,7 @@ export default function Project(props: any) {
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
+  const [showMessageData, setShowMessageData] = useState({show: false, message:"", type: "positive"});
 
   const checkErrorByBoardKey = (key) => {
     const errorConditionsMap = {
@@ -117,9 +117,13 @@ export default function Project(props: any) {
     console.log(projectHasNoErrors())
     if(projectHasNoErrors()){
       setLoading(true);
-      API.createProjectItems({ projectItems, projectId});
+      let result = await API.createProjectItems({ projectItems, projectId});
       setLoading(false);
-      setShowMessage(true);
+      setShowMessageData({
+        show: true,
+        message: result.error ? "Erro ao salvar a instalação" : "Instalação salva com sucesso!",
+        type: result.error ? "negative" : "positive"
+      });
       setShowErrors(false)
     }
   }
@@ -148,7 +152,7 @@ export default function Project(props: any) {
       <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
       <h2>{projectData?.name}</h2>
       <Spinner loading={loading}/>
-      <Message text="Instalação salva com sucesso!" type="positive" show={showMessage} setShow={setShowMessage}/>
+      <Message text={showMessageData.message} type={showMessageData.type} show={showMessageData.show} setShow={setShowMessageData}/>
       <div className="w-full h-full flex flex-col justify-start">
         <EquipmentsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
         <MotorsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
