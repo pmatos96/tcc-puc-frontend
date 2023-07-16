@@ -149,22 +149,26 @@ export default function Project(props: any) {
 
   return (
     <div className="bg-slate-100 w-screen min-h-screen">
-      <h1 className="text-black font-bold pb-2">Calculadora elétrica</h1>
-      <h2>{projectData?.name}</h2>
+      <h1 className="text-black text-[22px] font-bold pb-2 ml-[2.5%]">Calculadora elétrica</h1>
+      <h2 className="ml-[2.5%]">{projectData?.name}</h2>
+      <div className="w-[95%] ml-[2.5%] min-h-[10px] bg-[#DADADA] rounded-[21px] p-5 mt-4 mb-4">
+        Olá! Nesta seção da ferramenta, você deverá informar as informações dos elementos que constituirão a carga elétrica de sua instalação. Você deverá inserir os elementos de iluminação, tomadas, aparelhos elétricos, motores e transfdormadores (caso os possua). Insira também a quantidade, potência e tipo quando necessário. Após inserir todos os dados necessário, o sistema irá mostrar todos os parâmetros da sua instalação. Você pode conferir no rótulo RESULTADOS no final da página.
+      </div>
       <Spinner loading={loading}/>
       <Message text={showMessageData.message} type={showMessageData.type} show={showMessageData.show} setShow={setShowMessageData}/>
-      <div className="w-full h-full flex flex-col justify-start">
+      <div className="w-full h-full flex flex-col justify-center items-center">
         <EquipmentsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.equipmentOptions} updateProjectItems={updateProjectItems}/>
         <MotorsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.motorOptions} updateProjectItems={updateProjectItems}/>
         <LampsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.lampOptions} updateProjectItems={updateProjectItems}/>
         <TransformersAndWeldingMachinesBoard showErrors={showErrors} isEditing={isEditing} items={projectItems} setIsEditing={setIsEditing} equipmentOptions={props.transformerAndWeldingMachinesOptions} updateProjectItems={updateProjectItems}/>
         <OutletsBoard showErrors={showErrors} items={projectItems} isEditing={isEditing} setIsEditing={setIsEditing} equipmentOptions={props.outletOptions} roomOptions={props.roomOptions} updateProjectItems={updateProjectItems}/>
-        {isEditing && !isSaving && 
-          <div className="fixed h-full w-[35%] top-0 right-0 border-red-800">
-            <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleSaveButton()}}/>
-          </div>
-        }
+        
       </div>
+      {isEditing && !isSaving && 
+        <div className="fixed h-full w-[35%] bottom-[500px] left-0 border-red-800">
+          <Button name="Salvar instalação" classComplement="absolute top-24" effect={() => {handleSaveButton()}}/>
+        </div>
+      }
     </div>
   )
 }

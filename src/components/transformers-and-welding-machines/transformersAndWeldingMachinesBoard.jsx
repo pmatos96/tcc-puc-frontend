@@ -57,7 +57,7 @@ export default function TransformersAndWeldingMachinesBoard(props){
     }
 
     return (
-        <div className="w-3/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded">
+        <div className="w-[95%] min-h-max p-2 mt-2 mb-2 bg-[#DADADA] shadow-md rounded-[21px]">
             <BoardHeader title="Transformadores/Máquinas de solda" iconName="ev_station"/>
             <div>
                 {(props.items[boardType] || []).map(equipmentItem => {

@@ -41,7 +41,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
     }
 
     return (
-        <div className="flex w-2/5 min-h-max p-2 mt-2 mb-2 bg-slate-300 shadow-md rounded text-slate-700">
+        <div className="flex w-[95%] min-h-max p-2 mt-2 mb-2 bg-[#DADADA] shadow-md rounded-[21px] text-black">
             {isInDeletion && 
             <ProjectDeletionModal 
                 setOpen={() => {setIsInDeletion(true)}}
@@ -54,6 +54,21 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
                 <>
                     <div className="h-full w-1/2">
                         <BoardHeader title={name} iconName="bolt"/>
+                        <p>
+                            POTÊNCIA DEMANDADA TOTAL:  XXXX W (XXXX KVA) <br/>
+
+                            DISJUNTOR GERAL: XX A (CURVA C) <br/>
+
+                            CONDUTOR DE ALIMENTAÇÃO: YxYY mm² <br/>
+
+                            CONDUTOR DE ATERRAMENTO: YxYY mm² <br/>
+
+                            ELETRODUTO: DIÂMETRO YY mm (YY POLEGADAS) <br/>
+
+                            QUANTIDADE DE ELETRODOS:  YY POLEGADAS <br/>
+                        </p>
+
+                        <br/>
                         Criado em: {new Date(creationDate).toLocaleDateString(
                             'pt-BR', 
                             { 
@@ -63,9 +78,20 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
                             }
                         )}
                     </div>
-                    <div className="w-1/2 flex flex-col justify-around items-center">
-                        <Button name="Editar instalação" iconName="delete" effect={() => {router.push("/instalacoes/[projectId]", '/instalacoes/' + id);}}/>
+                    <div className="w-1/2 flex flex-col justify-center items-center">
+                        <Button name="Editar instalação" iconName="settings" effect={() => {router.push("/instalacoes/[projectId]", '/instalacoes/' + id);}}/>
                         <Button name="Excluir instalação" iconName="delete" color="bg-red-500" fontColor="text-slate-100" effect={() => {setIsInDeletion(true)}}/>
+                        <div>
+                            <h1 className="text-[22px] mb-2">ORÇAMENTO PRÉVIO</h1>
+                            <ul className="list-disc pl-4">
+                                <li>FIOS:  R$ XX,XX</li>
+                                <li>TOMADAS:  R$ XX,XX</li>
+                                <li>LÂMPADAS: R$ XX,XX</li>
+                                <li>ELETRODUTOS:  R$ XX,XX</li>
+                            </ul>
+                            <br/>
+                            FIOS:  R$ XX,XX
+                        </div>
                     </div>
                 </>
                 :
