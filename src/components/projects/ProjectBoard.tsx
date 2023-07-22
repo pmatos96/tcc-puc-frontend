@@ -67,16 +67,6 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
 
                             QUANTIDADE DE ELETRODOS:  YY POLEGADAS <br/>
                         </p>
-
-                        <br/>
-                        Criado em: {new Date(creationDate).toLocaleDateString(
-                            'pt-BR', 
-                            { 
-                                day: '2-digit', 
-                                month: '2-digit', 
-                                year: 'numeric' 
-                            }
-                        )}
                     </div>
                     <div className="w-1/2 flex flex-col justify-center items-center">
                         <Button name="Editar instalação" iconName="settings" effect={() => {router.push("/instalacoes/[projectId]", '/instalacoes/' + id);}}/>
@@ -91,6 +81,15 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
                             </ul>
                             <br/>
                             FIOS:  R$ XX,XX
+                            <br/>
+                            Criado em: {new Date(creationDate).toLocaleDateString(
+                            'pt-BR', 
+                            { 
+                                day: '2-digit', 
+                                month: '2-digit', 
+                                year: 'numeric' 
+                            }
+                        )}
                         </div>
                     </div>
                 </>

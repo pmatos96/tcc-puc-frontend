@@ -37,7 +37,7 @@ export default function OutletProjectItemLine({ equipmentItem, onRemove, onChang
             </select>
             <label className="mr-3" for="amount">Quantidade:</label>
             <input className={"mr-4" + verifyAndSetError("amount")} type="number" name="amount" onChange={handleInputChange} value={equipmentItem.amount}/>
-            {fieldHasError("amount") && showErrors && <span className="text-red-500 mt-1">Campo obrigatório!</span>}
+            {fieldHasError("amount") && showErrors && <div className="text-red-500 mt-1">Campo obrigatório!</div>}
             <label className="mr-3" for="power">Potência (elétrica):</label>
             <input className={"mr-3" + verifyAndSetError("power")} type="number" name="power" onChange={handleInputChange} value={equipmentItem.power}/>
             {fieldHasError("power") && showErrors && <span className="text-red-500 mt-1">Campo obrigatório!</span>}

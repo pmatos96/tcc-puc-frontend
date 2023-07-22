@@ -9,6 +9,7 @@ export default function Document() {
         <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Roboto&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"></link>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet"></link>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@48,400,1,0" />
       </Head>
       <body className='bg-white'>
         <Main />

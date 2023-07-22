@@ -57,7 +57,7 @@ export default function TransformersAndWeldingMachinesBoard(props){
     }
 
     return (
-        <div className="w-[95%] min-h-max p-2 mt-2 mb-2 bg-[#DADADA] shadow-md rounded-[21px]">
+        <div className="relative w-[95%] min-h-max p-2 mt-2 mb-2 bg-[#DADADA] shadow-md rounded-[21px]">
             <BoardHeader title="Transformadores/Máquinas de solda" iconName="ev_station"/>
             <div>
                 {(props.items[boardType] || []).map(equipmentItem => {
@@ -72,8 +72,8 @@ export default function TransformersAndWeldingMachinesBoard(props){
                     />
                 })}
             </div>
-            <button onClick={() => {setNewEmptyEquipment()}}>
-                <i className="material-icons-outlined">add_box</i>
+            <button className="absolute top-0 right-0 mt-2 mr-2" onClick={() => {setNewEmptyEquipment()}}>
+                <i className="material-symbols-sharp">add_circle</i>
             </button>
         </div>
     )

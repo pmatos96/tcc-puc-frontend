@@ -1,4 +1,5 @@
 import Button from "@/src/components/common/Button";
+import Navbar from "@/src/components/common/Navbar";
 import Spinner from "@/src/components/common/Spinner";
 import ProjectCreationModal from "@/src/components/instalacoes/projectCreationModal";
 import ProjectBoard from "@/src/components/projects/ProjectBoard"
@@ -15,6 +16,7 @@ export default function Projects({ projects }: any) {
 
   return (
     <div className="bg-slate-100 w-screen min-h-screen">
+      <Navbar/>
       <h1 className="text-black font-bold text-[24px] pb-2 pt-2 ml-[2.5%]">SUAS INSTALAÇÕES:</h1>
       <Spinner loading={loading}/>
       <div className="w-full h-full flex flex-col justify-center items-center">
