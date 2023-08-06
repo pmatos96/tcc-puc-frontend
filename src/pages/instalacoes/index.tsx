@@ -5,7 +5,7 @@ import ProjectCreationModal from "@/src/components/instalacoes/projectCreationMo
 import ProjectBoard from "@/src/components/projects/ProjectBoard"
 import API from "@/src/services/api";
 import { useRouter } from "next/router";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 export default function Projects({ projects }: any) {
 
@@ -13,6 +13,14 @@ export default function Projects({ projects }: any) {
 
     const [creationModalOpen, setCreationModalOpen] = useState(false);
     const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const isLogged = localStorage.getItem('logged');
+
+    if(!isLogged) {
+      router.replace('/')
+    }
+  }, [router])
 
   return (
     <div className="bg-slate-100 w-screen min-h-screen">
