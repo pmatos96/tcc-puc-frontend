@@ -88,13 +88,8 @@ export default class API {
     }
 
     static async getProjectItems(projectId: string){
-        const projectItems = await axios.get(this.BASE_URL + "projects/" + projectId + "/items")
-        .then(response => {
-            return response.data.projectItems;
-        }).catch(error => {
-            console.error(error);
-        });
-
-        return projectItems;
+        const result = await axios.get(this.BASE_URL + "projects/" + projectId + "/items")
+        
+        return ((result && result.data && result.data.projectItems) || []);
     }
 }

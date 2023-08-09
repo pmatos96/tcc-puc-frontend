@@ -13,7 +13,7 @@ interface ButtonProps {
 export default function Button({ name, iconName, color, fontColor, classComplement, effect}: ButtonProps){
 
     const getClassName = () => {
-        return "text-center mb-2 leading-[20px] min-w-50 h-10 p-6 rounded-md flex items-center justify-center border-solid border-2 border-slate-400 cursor-pointer shadow-md " + fontColor + " " + (color || "bg-amber-300") + " " + classComplement;
+        return "text-center mb-2 leading-[20px] min-w-50 h-10 p-6 rounded-md flex items-center justify-center cursor-pointer shadow-md " + fontColor + " " + (color || "bg-amber-300") + " " + classComplement;
     }
 
     return (

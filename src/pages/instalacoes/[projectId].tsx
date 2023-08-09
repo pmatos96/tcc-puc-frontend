@@ -81,11 +81,11 @@ export default function Project(props: any) {
   async function initializeProjectItems(){
 
     const items = await API.getProjectItems(projectId);
-
+    console.log(items)
     let projectItemsMap = {};
 
     Object.keys(projectItems).forEach(boardType => {
-      projectItemsMap[boardType] = items.filter(item => item.boardType == boardType);
+      projectItemsMap[boardType] = (items || []).filter(item => item.boardType == boardType);
     })
 
     setProjectItems(projectItemsMap);
@@ -114,9 +114,14 @@ export default function Project(props: any) {
       })
   }
 
+  function atLeastOneBoardFilled(){
+    return !!Object.keys(projectItems).find(boardKey => {
+      return projectItems[boardKey].length > 0;
+    })
+  }
+
   async function saveProjectItems() {
     setShowErrors(true)
-    console.log(projectHasNoErrors())
     if(projectHasNoErrors()){
       setLoading(true);
       let result = await API.createProjectItems({ projectItems, projectId});
@@ -184,9 +189,12 @@ export default function Project(props: any) {
         </p>
       </div>
       {isEditing && !isSaving && 
+        <>
+        {isEditing && !atLeastOneBoardFilled() && <p className="text-red-500 block text-center">Não foi possível criar uma instalação sem nenhum dado fornecido. Favor inserir dados completos em ao menos uma das seções acima.</p>}
         <div className="bg-slate-100 relative h-[200px] w-full border-red-800 flex justify-center items-center">
           <Button name="Salvar instalação" classComplement="w-64" effect={() => {handleSaveButton()}}/>
         </div>
+        </>
       }
     </div>
   )

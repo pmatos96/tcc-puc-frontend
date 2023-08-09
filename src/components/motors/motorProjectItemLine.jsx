@@ -1,15 +1,17 @@
 import { useEffect } from "react";
 import DeleteLineButton from "../common/DeleteLineButton";
 
-export default function OutletProjectItemLine({ equipmentItem, onRemove, onChange, equipmentOptions, linesAmount, showErrors }){
+export default function MotorProjectItemLine({ equipmentItem, onRemove, onChange, equipmentOptions, linesAmount, showErrors }){
 
     function fieldHasError(fieldName){
 
         const errorConditionsByFieldName = {
-            "amount": !equipmentItem.amount,
-            "power": !equipmentItem.power
+            "amount": !Number(equipmentItem.amount),
+            "power": !Number(equipmentItem.power)
         }
-
+        console.log(fieldName)
+        console.log(equipmentItem.power)
+        console.log(errorConditionsByFieldName[fieldName])
         return errorConditionsByFieldName[fieldName]
     }
   

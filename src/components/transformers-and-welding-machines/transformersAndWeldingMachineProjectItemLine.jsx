@@ -6,8 +6,8 @@ export default function TransformersAndWeldingMachineProjectItemLine({ equipment
     function fieldHasError(fieldName){
 
         const errorConditionsByFieldName = {
-          "amount": !equipmentItem.amount,
-          "power": !equipmentItem.power
+          "amount": !Number(equipmentItem.amount),
+          "power": !Number(equipmentItem.power)
         }
   
         return errorConditionsByFieldName[fieldName]

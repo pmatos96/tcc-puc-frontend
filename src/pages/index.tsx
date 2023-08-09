@@ -17,7 +17,7 @@ export default function Login(){
 
         if (login !== testUserLogin) {
             console.log(login)
-            setLoginError("Login incorreto!");
+            setLoginError("Login Inválido. Favor inserir e-mail e senha corretos.");
             return;
         }
 

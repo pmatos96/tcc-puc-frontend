@@ -6,7 +6,7 @@ export default function MotorProjectItemLine({ equipmentItem, onRemove, onChange
     function fieldHasError(fieldName){
 
         const errorConditionsByFieldName = {
-          "amount": !equipmentItem.amount
+          "amount": !Number(equipmentItem.amount)
         }
   
         return errorConditionsByFieldName[fieldName]
