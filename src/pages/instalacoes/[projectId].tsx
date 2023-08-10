@@ -207,10 +207,10 @@ export const getServerSideProps = async () => {
   const outletEquipmentTypeId = "cle0j3i2c0000j9zobqkc70xg";
   const transformerAndWeldingMachinesTypeId = "cle0jbyve0003j9zo1tryviuk";
 
-  const equipmentsResponse = await fetch('http://localhost:3333/equipments/');
+  const equipmentsResponse = await fetch(process.env.SERVER_URL + 'equipments/');
   const equipmentData = await equipmentsResponse.json();
 
-  const roomsResponse = await fetch('http://localhost:3333/rooms/');
+  const roomsResponse = await fetch(process.env.SERVER_URL + 'rooms/');
   const roomData = await roomsResponse.json();
 
   return {
