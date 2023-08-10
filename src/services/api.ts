@@ -20,7 +20,7 @@ type ProjectItem = {
 
 
 export default class API {
-    static BASE_URL = "http://localhost:3333/";
+    static BASE_URL = process.env.SERVER_URL;
 
     static async createProject({ name }: CreateProjectParams){
         const createdProject = axios.post(this.BASE_URL + 'projects/', {
@@ -43,7 +43,7 @@ export default class API {
         });
     }
 
-    static async createProjectItems({ projectItems, projectId }){
+    static async createProjectItems({ projectItems, projectId }: any){
 
         try {
             let response = await axios.post(this.BASE_URL + 'projects/' + projectId + '/items', {
@@ -52,7 +52,7 @@ export default class API {
             
             return response.data;
         }
-        catch(error){
+        catch(error: any){
             return {
                 error: true,
                 message: error.response.data.error

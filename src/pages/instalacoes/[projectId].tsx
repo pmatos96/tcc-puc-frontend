@@ -11,7 +11,7 @@ import Button from "../../../src/components/common/Button";
 import Spinner from "../../../src/components/common/Spinner";
 import Message from "../../../src/components/common/Message";
 import BoardHeader from "@/src/components/common/BoardHeader.jsx";
-import Navbar from "@/src/components/common/Navbar.tsx";
+import Navbar from "@/src/components/common/Navbar";
 
 
 export default function Project(props: any) {
@@ -19,11 +19,11 @@ export default function Project(props: any) {
   const router = useRouter();
   const { projectId } = router.query as { projectId: string };
 
-  const [projectData, setProjectData] = useState();
+  const [projectData, setProjectData] = useState<{name: string}>();
 
   const [itemsBoardComponents, setItemsBoardComponents] = useState([]);
   const [showErrors, setShowErrors] = useState(false);
-  const [projectItems, setProjectItems] = useState({
+  const [projectItems, setProjectItems] = useState<Record <string, Array<any>>>({
     "equipments": [],
     "motors": [],
     "lamps": [],
@@ -36,33 +36,33 @@ export default function Project(props: any) {
   const [loading, setLoading] = useState(false);
   const [showMessageData, setShowMessageData] = useState({show: false, message:"", type: "positive"});
 
-  const checkErrorByBoardKey = (key) => {
-    const errorConditionsMap = {
-      "equipments": !projectItems.equipments.every(item => {
+  const checkErrorByBoardKey: Function = (key: string): boolean => {
+    const errorConditionsMap: Record<string, boolean> = {
+      "equipments": !projectItems.equipments.every((item: {amount: number, power: number}) => {
         return (
           item.amount > 0 &&
           item.power > 0
         )
       }),
-      "motors": !projectItems.motors.every(item => {
+      "motors": !projectItems.motors.every((item: {amount: number, power: number}) => {
         return (
           item.amount > 0 &&
           item.power > 0
         )
       }),
-      "lamps": !projectItems.lamps.every(item => {
+      "lamps": !projectItems.lamps.every((item: {amount: number, power: number}) => {
         return (
           item.amount > 0 &&
           item.power > 0
         )
       }),
-      "transformersAndWeldMachines": !projectItems.transformersAndWeldMachines.every(item => {
+      "transformersAndWeldMachines": !projectItems.transformersAndWeldMachines.every((item: {amount: number, power: number}) => {
         return (
           item.amount > 0 &&
           item.power > 0
         )
       }),
-      "outlets": !projectItems.outlets.every(item => {
+      "outlets": !projectItems.outlets.every((item: {amount: number}) => {
         return (
           item.amount > 0
         )
@@ -82,10 +82,10 @@ export default function Project(props: any) {
 
     const items = await API.getProjectItems(projectId);
     console.log(items)
-    let projectItemsMap = {};
+    let projectItemsMap: any = {};
 
     Object.keys(projectItems).forEach(boardType => {
-      projectItemsMap[boardType] = (items || []).filter(item => item.boardType == boardType);
+      projectItemsMap[boardType] = (items || []).filter((item: { boardType: string; }) => item.boardType == boardType);
     })
 
     setProjectItems(projectItemsMap);
@@ -215,11 +215,11 @@ export const getServerSideProps = async () => {
 
   return {
       props:{
-          equipmentOptions: equipmentData.equipments.filter(equipment => equipment.typeId === commomEquipmentTypeId),
-          lampOptions: equipmentData.equipments.filter(equipment => equipment.typeId === lampEquipmentTypeId),
-          motorOptions: equipmentData.equipments.filter(equipment => equipment.typeId === motorEquipmentTypeId),
-          outletOptions: equipmentData.equipments.filter(equipment => equipment.typeId === outletEquipmentTypeId),
-          transformerAndWeldingMachinesOptions: equipmentData.equipments.filter(equipment => equipment.typeId === transformerAndWeldingMachinesTypeId),
+          equipmentOptions: equipmentData.equipments.filter((equipment: { typeId: string; }) => equipment.typeId === commomEquipmentTypeId),
+          lampOptions: equipmentData.equipments.filter((equipment: { typeId: string; }) => equipment.typeId === lampEquipmentTypeId),
+          motorOptions: equipmentData.equipments.filter((equipment: { typeId: string; }) => equipment.typeId === motorEquipmentTypeId),
+          outletOptions: equipmentData.equipments.filter((equipment: { typeId: string; }) => equipment.typeId === outletEquipmentTypeId),
+          transformerAndWeldingMachinesOptions: equipmentData.equipments.filter((equipment: { typeId: string; }) => equipment.typeId === transformerAndWeldingMachinesTypeId),
           roomOptions: roomData.rooms
       }
   }

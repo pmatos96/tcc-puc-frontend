@@ -5,7 +5,7 @@ import ProjectCreationModal from "@/src/components/instalacoes/projectCreationMo
 import ProjectBoard from "@/src/components/projects/ProjectBoard"
 import API from "@/src/services/api";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react"
+import { Key, useEffect, useState } from "react"
 
 export default function Projects({ projects }: any) {
 
@@ -28,10 +28,10 @@ export default function Projects({ projects }: any) {
       <h1 className="text-black font-bold text-[24px] pb-2 pt-2 ml-[2.5%]">SUAS INSTALAÇÕES:</h1>
       <Spinner loading={loading}/>
       <div className="w-full h-full flex flex-col justify-center items-center">
-        {projects.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).map(project => {
+        {projects.sort((a: any, b: any) => new Date(b.createdAt).getMilliseconds() - new Date(a.createdAt).getMilliseconds()).map((project: { name: string | undefined; createdAt: Date | undefined; id: string; }) => {
             return <ProjectBoard name={project.name} creationDate={project.createdAt} id={project.id} key={project.id}/>
         })}
-        <ProjectBoard newProjectEffect={() => {setCreationModalOpen(true)}}/>
+        <ProjectBoard newProjectEffect={() => { setCreationModalOpen(true); } } id={""}/>
       </div>
       {creationModalOpen && 
         <ProjectCreationModal 

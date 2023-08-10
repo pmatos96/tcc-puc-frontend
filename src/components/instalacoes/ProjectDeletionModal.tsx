@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import Button from "../common/Button"
 
 interface ModalProps {
     setOpen: Function;
-    setClose: Function;
+    setClose: MouseEventHandler;
     onComplete: Function;
 }
 

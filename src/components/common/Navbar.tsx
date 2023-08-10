@@ -9,7 +9,7 @@ export default function Navbar() {
     };
 
     useEffect(() => {
-        const isLogged = localStorage.getItem('logged');
+        const isLogged = !!localStorage.getItem('logged');
 
         setIsLogged(isLogged);
     }, [])

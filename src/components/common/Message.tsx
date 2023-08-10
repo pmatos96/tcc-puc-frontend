@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { Component, useEffect, useState, ReactNode } from "react";
 
 interface MessageInput {
 
     text: string;
-    type: "positive" | "negative" | "neutral";
+    type: string;
     show: boolean;
     setShow: Function;
 }
@@ -16,7 +16,7 @@ function Message ({ text, type, show, setShow }: MessageInput){
         setIsShowing(false);
     }
 
-    const messageIconByType = {
+    const messageIconByType:Record<string, ReactNode> = {
         "positive": <i className="material-icons-outlined text-green-600 ml-2">check</i>,
         "negative": <i className="material-icons-outlined text-red-600 ml-2">close</i>,
         "neutral": <></>

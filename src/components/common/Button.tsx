@@ -7,7 +7,7 @@ interface ButtonProps {
     color?: string;
     fontColor?: string;
     classComplement?: string;
-    effect?: Function;
+    effect?: MouseEventHandler;
 }
 
 export default function Button({ name, iconName, color, fontColor, classComplement, effect}: ButtonProps){

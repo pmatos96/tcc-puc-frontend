@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import Button from "../common/Button"
 
 interface ModalProps {
     setOpen: Function;
-    setClose: Function;
+    setClose: MouseEventHandler;
     onComplete: Function;
 }
 
@@ -33,7 +33,7 @@ export default function ProjectCreationModal({ setOpen, setClose, onComplete }: 
         <div className="fixed inset-0 flex justify-center items-center blur-bg">
         <div className="min-w-[33%] min-h-[30%] bg-slate-200 rounded-md shadow-lg relative">
           <div className="flex p-10">
-            <label for="name" className="mr-2">Nome da instalação</label>
+            <label htmlFor="name" className="mr-2">Nome da instalação</label>
             <input className={"mr-4 w-full P-2 border " + verifyAndSetError("name")} type="text" name="name" value={projectName} onChange={(e) => setProjectName(e.target.value)}/>
             {fieldHasError("name") && showErrors && <span className="text-red-500 mt-1">Campo obrigatório!</span>}
           </div>

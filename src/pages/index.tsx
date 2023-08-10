@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 
 export default function Login(){
 
-    const [login, setLogin] = useState();
-    const [password, setPassword] = useState();
-    const [loginError, setLoginError] = useState();
+    const [login, setLogin] = useState<string>();
+    const [password, setPassword] = useState<string>();
+    const [loginError, setLoginError] = useState<string>();
 
     const testUserLogin = "admin";
     const testUserPassword = "admin"
@@ -26,7 +26,7 @@ export default function Login(){
             return
         }
 
-        localStorage.setItem('logged', true);
+        localStorage.setItem('logged', `${true}`);
         router.push('/instalacoes')
     }
 
@@ -46,11 +46,11 @@ export default function Login(){
                     </div>
                     <div>
                         <div className="w-full pl-10 pt-2">
-                            <label className="mr-3" for="login">LOGIN:</label>
+                            <label className="mr-3" htmlFor="login">LOGIN:</label>
                             <input onChange={(e) => setLogin(e.target.value)} value={login} className="rounded-[21px] min-w-[250px]" type="text" name="login"/>
                         </div>
                         <div className="w-full pl-10 pt-2 pr-10">
-                            <label className="mr-3" for="password">SENHA:</label>
+                            <label className="mr-3" htmlFor="password">SENHA:</label>
                             <input onChange={(e) => setPassword(e.target.value)} value={password} className="rounded-[21px] min-w-[250px]" type="password" name="password"/>
                         </div>
                         {loginError && <div className="pl-10 text-red-500">{loginError}</div>}
