@@ -40,6 +40,7 @@ export default function Projects({ projects }: any) {
           onComplete={async (name: string) => {
             setLoading(true);
             let newProject = await API.createProject({ name });
+            console.log(newProject)
             setLoading(false);
             setCreationModalOpen(false);
             router.push("/instalacoes/[projectId]", '/instalacoes/' + newProject.id);

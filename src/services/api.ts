@@ -20,12 +20,13 @@ type ProjectItem = {
 
 
 export default class API {
-    static BASE_URL = process.env.SERVER_URL;
+    static BASE_URL = 'https://electriccalculator.onrender.com/';
 
     static async createProject({ name }: CreateProjectParams){
         const createdProject = axios.post(this.BASE_URL + 'projects/', {
             name
         }).then(response => {
+            console.log(response)
             return response.data;
         }).catch(error => {
             console.error(error);
