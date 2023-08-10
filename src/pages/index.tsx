@@ -10,7 +10,7 @@ export default function Login(){
     const [loginError, setLoginError] = useState<string>();
 
     const testUserLogin = "admin";
-    const testUserPassword = "admin"
+    const testUserPassword = "PucMinas2223!"
     const router = useRouter();
 
     const signIn = () => {
