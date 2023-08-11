@@ -17,9 +17,11 @@ interface ProjectBoardProps {
 
 export default function ProjectBoard ({ name, creationDate, newProjectEffect, id }: ProjectBoardProps) {
     
+    type messageDataType = {show: boolean, message: string, type: string};
+
     const [isInDeletion, setIsInDeletion] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [showMessageData, setShowMessageData] = useState({show: false, message:"", type: "positive"});
+    const [showMessageData, setShowMessageData] = useState<messageDataType>({show: false, message:"", type: "positive"});
 
     const router = useRouter();
 
@@ -27,17 +29,22 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
 
         setLoading(true);
         setIsInDeletion(false);
-        let messageData;
+        let messageData: messageDataType | undefined;
         try{
             await API.deleteProject({ id });
             messageData = {show: true, message: "Instalação excluída com sucesso!", type: "positive"};
+            router.replace(router.asPath)
         }
         catch(err){
             messageData = {show: true, message: "Erro ao excluir instalação", type: "negative"};
         }
-        setLoading(false);
-        setShowMessageData(messageData);
-        router.reload();
+        finally {
+            setLoading(false);
+            if(messageData){
+                setShowMessageData(messageData);
+            }
+            setTimeout(() => {router.reload()}, 500);
+        }
     }
 
     return (

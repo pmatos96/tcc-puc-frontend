@@ -28,7 +28,7 @@ export default function Projects({ projects }: any) {
       <h1 className="text-black font-bold text-[24px] pb-2 pt-2 ml-[2.5%]">SUAS INSTALAÇÕES:</h1>
       <Spinner loading={loading}/>
       <div className="w-full h-full flex flex-col justify-center items-center">
-        {projects.sort((a: any, b: any) => new Date(b.createdAt).getMilliseconds() - new Date(a.createdAt).getMilliseconds()).map((project: { name: string | undefined; createdAt: Date | undefined; id: string; }) => {
+        {projects.sort((a: {createdAt: Date}, b: {createdAt: Date}) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()).map((project: { name: string | undefined; createdAt: Date | undefined; id: string; }) => {
             return <ProjectBoard name={project.name} creationDate={project.createdAt} id={project.id} key={project.id}/>
         })}
         <ProjectBoard newProjectEffect={() => { setCreationModalOpen(true); } } id={""}/>

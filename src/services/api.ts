@@ -26,7 +26,6 @@ export default class API {
         const createdProject = axios.post(this.BASE_URL + 'projects/', {
             name
         }).then(response => {
-            console.log(response)
             return response.data;
         }).catch(error => {
             console.error(error);
@@ -37,7 +36,6 @@ export default class API {
 
     static async deleteProject({ id }: DeleteProjectParams){
         axios.delete(this.BASE_URL + 'projects/' + id).then(response => {
-            console.log("Instalação deletada com sucesso!");
             return true;
         }).catch(error => {
             console.error(error);
