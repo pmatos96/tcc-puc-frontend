@@ -43,7 +43,7 @@ export default function ProjectBoard ({ name, creationDate, newProjectEffect, id
             if(messageData){
                 setShowMessageData(messageData);
             }
-            setTimeout(() => {router.reload()}, 500);
+            setTimeout(() => {router.reload()}, 1000);
         }
     }
 
